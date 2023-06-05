@@ -1,0 +1,14 @@
+[
+    {
+        "name" : "Super Admin",
+        "portal_id" : 1
+    },
+    {
+        "name" : "Admin",
+        "portal_id" : 2
+    },
+    {
+        "name" : "Warehouse Manager",
+        "portal_id" : 3
+    }
+]
