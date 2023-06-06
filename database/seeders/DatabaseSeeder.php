@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PortalSeeder::class,
             RolesSeeder::class,
+            CompanieSeeder::class,
         ]);
     }
 }
