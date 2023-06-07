@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Item;
+use App\Models\Brand;
+use App\Models\ProductType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name','modelNumber',
+        'name',
+        'model_number',
         'package_height',
         'package_width',
         'package_length',
@@ -22,4 +26,19 @@ class Product extends Model
         "brand_id",
         "product_type_id",
     ];
+
+    function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    function productType()
+    {
+        return $this->belongsTo(ProductType::class);
+    }
+
+    function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }

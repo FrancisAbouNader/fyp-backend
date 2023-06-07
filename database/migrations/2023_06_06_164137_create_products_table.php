@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('modelNumber');
-            $table->integer('package_height');
-            $table->integer('package_width');
-            $table->integer('package_length');
-            $table->integer('package_weight');
-            $table->integer('product_height');
-            $table->integer('product_width');
-            $table->integer('product_length');
-            $table->integer('product_weight');
+            $table->integer('model_number');
+            $table->float('package_height');
+            $table->float('package_width');
+            $table->float('package_length');
+            $table->float('package_weight');
+            $table->float('product_height');
+            $table->float('product_width');
+            $table->float('product_length');
+            $table->float('product_weight');
             $table->string('description');
             $table->unsignedBigInteger('brand_id');
             $table->foreign("brand_id")->references('id')->on('brands');
