@@ -1,0 +1,12 @@
+[
+    {
+        "name":"laptop",
+        "imei":1234344,
+        "product_id":1
+    },
+    {
+       "name":"Mouse",
+        "imei":1234344,
+        "product_id":2
+    }
+]

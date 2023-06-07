@@ -1,0 +1,32 @@
+[
+    {
+        "name":"Samsung laptop",
+        "model_number":1234344,
+        "package_height":3,
+        "package_width":3,
+        "package_length":3,
+        "package_weight":3,
+        "product_height":3,
+        "product_width":3,
+        "product_length":3,
+        "product_weight":3,
+        "description":"Black laptop",
+        "brand_id":1,
+        "product_type_id":1
+    },
+    {
+        "name":"Samsung mouse",
+        "model_number":12343234,
+        "package_height":3,
+        "package_width":3,
+        "package_length":3,
+        "package_weight":3,
+        "product_height":3,
+        "product_width":3,
+        "product_length":3,
+        "product_weight":3,
+        "description":"Black mouse",
+        "brand_id":1,
+        "product_type_id":2
+    }
+]
