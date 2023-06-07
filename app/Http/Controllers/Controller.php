@@ -10,8 +10,8 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  * @OA\Info(
  *      version="1.0.0",
- *      title="Wahrehouse Management - API Documentation",
- *      description="Wahrehouse Management open api documentation",
+ *      title="Warehouse Management - API Documentation",
+ *      description="Warehouse Management open api documentation",
  *      @OA\License(
  *          name="Apache 2.0",
  *          url="http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -24,10 +24,9 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\SecurityScheme(
- *      securityScheme="APIKey",
- *      type="apiKey",
- *      in="header",
- *      name="X-Authorization"
+ *      securityScheme="bearerToken",
+ *      type="http",
+ *      scheme="bearer"
  * )
  * 
  */
@@ -35,4 +34,21 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
+    // ----- function to handle controller function response
+    function handleReturn($success, $data, $message){
+        return response()->json([
+            "success" => $success,
+            "data" => $data,
+            "message" => $message
+        ]);
+    }
+
+    // --- catch exceptions
+    public function reportError($exception){
+
+        //-- return error
+        return $this->handleReturn(false, null, $exception->getmessage()); # __("messages.error_contact_admin")
+    }
+
 }
