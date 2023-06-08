@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\ProductTypeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,12 +48,31 @@ Route::group(
 Route::group(
     [
         'middleware' => ['api'],
-        'prefix' => 'Brand',
+        'prefix' => 'Admin',
     ],
     function () {
         Route::get('/GetBrands', [BrandController::class, 'getBrands']);
         Route::post('/InsertBrand', [BrandController::class, 'insertBrand']);
-        Route::post('/UpdateBrand', [BrandController::class, 'UpdateBrand']);
-        Route::delete('/DeleteBrand', [BrandController::class, 'DeleteBrand']);
+        Route::post('/UpdateBrand', [BrandController::class, 'updateBrand']);
+        Route::delete('/DeleteBrand', [BrandController::class, 'deleteBrand']);
+        Route::get('/GetProductTypes', [ProductTypeController::class, 'getProductType']);
+        Route::post('/InsertProductType', [ProductTypeController::class, 'insertProductType']);
+        Route::post('/UpdateProductType', [ProductTypeController::class, 'updateProductType']);
+        Route::delete('/DeleteProductType', [ProductTypeController::class, 'deleteProductType']);
+    }
+);
+
+
+Route::group(
+    [
+        'middleware' => ['api'],
+        'prefix' => 'Product',
+    ],
+    function () {
+        Route::get('/GetProduct', [ProductController::class, 'getProduct']);
+        Route::post('/InsertProduct', [ProductController::class, 'insertProduct']);
+        Route::post('/UpdateProduct', [ProductController::class, 'updateProduct']);
+        Route::delete('/DeleteProduct', [ProductController::class, 'deleteProduct']);
+       
     }
 );

@@ -4,33 +4,34 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
-use App\Interfaces\BrandInterface;
 use Illuminate\Support\Facades\DB;
-use App\Validations\BrandValidation;
+use App\Interfaces\ProductTypeInterface;
+use App\Validations\ProductTypeValidation;
 
-class BrandController extends Controller
+
+class ProductTypeController extends Controller
 {
     // == DECLARATION
 
-    private $validateRequests, $brandInterface;
-    public function __construct(BrandValidation $validateRequests, BrandInterface $brandInterface) {
+    private $validateRequests, $ProductTypeInterface;
+    public function __construct(ProductTypeValidation $validateRequests, ProductTypeInterface $ProductTypeInterface) {
 
         $this->middleware('auth:api', ['except' => ['login']]);
 
         $this->validateRequests = $validateRequests;
-        $this->brandInterface = $brandInterface;
+        $this->ProductTypeInterface = $ProductTypeInterface;
     }
 //
 
 // == GET
 
 
-    // ----- get brands
+    // ----- get product type
     /**
      * @OA\Get(
-     *      path="/Admin/GetBrands",
+     *      path="/Admin/GetProductTypes",
      *      tags={"Admin"},
-     *      summary="get all brands",
+     *      summary="get all product types",
      *
      *      @OA\Response(
      *          response="200",
@@ -49,13 +50,13 @@ class BrandController extends Controller
      *      ),
      * )
      */
-    function getBrands(Request $request)
+    function getProductType(Request $request)
     {
         try {
 
-            $brands = $this->brandInterface->getBrands($request);
+            $productTypes = $this->ProductTypeInterface->getProductType($request);
             
-            return $this->handleReturn(true, $brands, null);
+            return $this->handleReturn(true, $productTypes, null);
         } catch (Exception $ex) {
             return $this->reportError($ex);
         }
@@ -68,10 +69,10 @@ class BrandController extends Controller
     // ----- insert brand
     /**
      * @OA\Post(
-     * path="/Admin/InsertBrand",
+     * path="/Admin/InsertProductType",
      * tags={"Admin"},
      * security={{"bearerToken":{}}},
-     * summary="Create a new brand",
+     * summary="Create a new product types",
      *     @OA\RequestBody(
      *           required=true,
      *           description="Body request needed to create a new brand",
@@ -115,20 +116,20 @@ class BrandController extends Controller
      *       ),
      * )
      */
-    function insertBrand(Request $request)
+    function insertProductType(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateInsertBrand();
+            $validation =  $this->validateRequests->validateInsertProductType();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $brand = $this->brandInterface->insertBrand($request);
+            $productTypes = $this->ProductTypeInterface->insertProductType($request);
             DB::commit();
 
-            return $this->handleReturn(true, $brand, "Created successfully");
+            return $this->handleReturn(true, $productTypes, "Created successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);
@@ -138,13 +139,13 @@ class BrandController extends Controller
     // ----- update brand
     /**
      * @OA\Post(
-     * path="/Admin/UpdateBrand",
+     * path="/Admin/UpdateProductType",
      * tags={"Admin"},
      * security={{"bearerToken":{}}},
-     * summary="Update Brand",
+     * summary="Update prouct tyep",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed to update a brand",
+     *           description="Body request needed to update a product",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
@@ -187,20 +188,20 @@ class BrandController extends Controller
      * )
      */
 
-    function updateBrand(Request $request)
+    function updateProductType(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateUpdateBrand();
+            $validation =  $this->validateRequests->validateUpdateProductType();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $user = $this->brandInterface->updateBrand($request);
+            $productTypes = $this->ProductTypeInterface->updateProductType($request);
             DB::commit();
 
-            return $this->handleReturn(true, $user, "Updated successfully");
+            return $this->handleReturn(true, $productTypes, "Updated successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);
@@ -214,13 +215,13 @@ class BrandController extends Controller
     // ----- delete user
     /**
      * @OA\Delete(
-     * path="/Admin/DeleteBrand",
+     * path="/Admin/DeleteProductType",
      * tags={"Admin"},
      * security={{"bearerToken":{}}},
-     * summary="Delete Brand",
+     * summary="Delete productTypes",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed to delete brand",
+     *           description="Body request needed to delete productTypes",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
@@ -262,20 +263,20 @@ class BrandController extends Controller
      * )
      */
 
-    function deleteBrand(Request $request)
+    function deleteProductType(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateDeleteBrand();
+            $validation =  $this->validateRequests->validateDeleteProductType();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $user = $this->brandInterface->deleteBrand($request);
+            $productTypes = $this->ProductTypeInterface->deleteProductType($request);
             DB::commit();
 
-            return $this->handleReturn(true, $user, "Deleted successfully");
+            return $this->handleReturn(true, $productTypes, "Deleted successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);
