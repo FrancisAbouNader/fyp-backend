@@ -8,8 +8,6 @@ use App\Interfaces\UserInterface;
 class UserRepository implements UserInterface
 {
 
-// == GET
-
     // ----- insert user
     function insertUser($request)
     {

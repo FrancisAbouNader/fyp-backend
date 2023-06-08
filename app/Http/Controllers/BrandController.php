@@ -4,34 +4,33 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
-use App\Interfaces\UserInterface;
+use App\Interfaces\BrandInterface;
 use Illuminate\Support\Facades\DB;
-use App\Validations\UserValidation;
-use Illuminate\Support\Facades\Auth;
+use App\Validations\BrandValidation;
 
-class UserController extends Controller
+class BrandController extends Controller
 {
-// == DECLARATION
+    // == DECLARATION
 
-    private $validateRequests, $userInterface;
-    public function __construct(UserValidation $validateRequests, UserInterface $userInterface) {
+    private $validateRequests, $brandInterface;
+    public function __construct(BrandValidation $validateRequests, BrandInterface $brandInterface) {
 
         $this->middleware('auth:api', ['except' => ['login']]);
 
         $this->validateRequests = $validateRequests;
-        $this->userInterface = $userInterface;
+        $this->brandInterface = $brandInterface;
     }
 //
 
 // == GET
 
 
-    // ----- logout
+    // ----- get brands
     /**
      * @OA\Get(
-     *      path="/Authentication/Logout",
-     *      tags={"Auth"},
-     *      summary="logout user",
+     *      path="/Brand/GetBrands",
+     *      tags={"Brand"},
+     *      summary="get all brands",
      *
      *      @OA\Response(
      *          response="200",
@@ -50,11 +49,13 @@ class UserController extends Controller
      *      ),
      * )
      */
-    function logout()
+    function getBrands(Request $request)
     {
         try {
-            auth()->logout();
-            return $this->handleReturn(true, null, "Logged out Succesfully");
+
+            $brands = $this->brandInterface->getBrands($request);
+            
+            return $this->handleReturn(true, $brands, null);
         } catch (Exception $ex) {
             return $this->reportError($ex);
         }
@@ -64,21 +65,21 @@ class UserController extends Controller
 
 // == EDIT
 
-    // ----- login
+    // ----- insert brand
     /**
      * @OA\Post(
-     * path="/Authentication/UserAuthenticate",
-     * tags={"Auth"},
-     * summary="Login",
+     * path="/Brand/InsertBrand",
+     * tags={"Brand"},
+     * security={{"bearerToken":{}}},
+     * summary="Create a new brand",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed login to the portals",
+     *           description="Body request needed to create a new brand",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
      *               type="object",
-     *               @OA\Property(property="email",description="email"),
-     *               @OA\Property(property="password",description="password"),
+     *               @OA\Property(property="name",description="name"),
      *            ),
      *        ),
      *    ),
@@ -114,130 +115,42 @@ class UserController extends Controller
      *       ),
      * )
      */
-    function login(Request $request)
+    function insertBrand(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateLogin();
+            $validation =  $this->validateRequests->validateInsertBrand();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
-            $inputs = [
-                "email" => strtolower(request()->email),
-                "password" => request()->password
-            ];
             DB::beginTransaction();
-            $token = Auth::attempt($inputs);
-            if (!$token) {
-                return $this->handleReturn(true, null, "Invalid Password");
-            }
-
+            $brand = $this->brandInterface->insertBrand($request);
             DB::commit();
 
-            return $this->handleReturn(true, $token, "Logged in successfully");
+            return $this->handleReturn(true, $brand, "Created successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);
         }
     }
 
-    // ----- insert user
+    // ----- update brand
     /**
      * @OA\Post(
-     * path="/User/InsertUser",
-     * tags={"User"},
+     * path="/Brand/UpdateBrand",
+     * tags={"Brand"},
      * security={{"bearerToken":{}}},
-     * summary="Add User",
+     * summary="Update Brand",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed add users",
-     *            @OA\MediaType(
-     *            mediaType="application/json",
-     *            @OA\Schema(
-     *               type="object",
-     *               @OA\Property(property="firstName"),
-     *               @OA\Property(property="lastName"),
-     *               @OA\Property(property="userName"),
-     *               @OA\Property(property="password"),
-     *               @OA\Property(property="email"),
-     *               @OA\Property(property="userTypeId", type="integer"),
-     *            ),
-     *        ),
-     *    ),
-     *      @OA\Response(
-     *          response="200",
-     *          description="Successful Operation",
-     *          @OA\JsonContent(
-     *          type="object",
-     *          @OA\Property(property="success", type="boolean", description="status" ),
-     *          @OA\Property(property="data", type="object", description="data" ),
-     *          @OA\Property(property="message", type="string", description="message" ),
-     *          ),
-     *        ),
-     *       @OA\Response(
-     *          response="422",
-     *          description="Unprocessable Entity",
-     *          @OA\JsonContent(
-     *          type="object",
-     *          @OA\Property(property="success", type="boolean", description="status" ),
-     *          @OA\Property(property="data",type="array",  @OA\Items( type="object"  ),description="data" ),
-     *          @OA\Property(property="message", type="string", description="message" ),
-     *          ),
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request",
-     *          @OA\JsonContent(
-     *          type="object",
-     *          @OA\Property(property="success", type="boolean", description="status" ),
-     *          @OA\Property(property="data",type="array",  @OA\Items( type="object"  ),description="data" ),
-     *          @OA\Property(property="message", type="string", description="message" ),
-     *          ),
-     *       ),
-     * )
-     */
-
-    function insertUser(Request $request)
-    {
-        try {
-            //-- validation
-            $validation =  $this->validateRequests->validateInsertUser();
-            if ($validation->fails()) {
-                return $this->handleReturn(false, null, $validation->errors()->first());
-            }
-
-            DB::beginTransaction();
-            $user = $this->userInterface->insertUser($request);
-            DB::commit();
-
-            return $this->handleReturn(true, $user, "Created successfully");
-        } catch (Exception $ex) {
-            DB::rollBack();
-            return $this->reportError($ex);
-        }
-    }
-
-    // ----- update user
-    /**
-     * @OA\Post(
-     * path="/User/UpdateUser",
-     * tags={"User"},
-     * security={{"bearerToken":{}}},
-     * summary="Update User",
-     *     @OA\RequestBody(
-     *           required=true,
-     *           description="Body request needed add users",
+     *           description="Body request needed to update a brand",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
      *               type="object",
      *               @OA\Property(property="id", type="integer"),
-     *               @OA\Property(property="firstName"),
-     *               @OA\Property(property="lastName"),
-     *               @OA\Property(property="userName"),
-     *               @OA\Property(property="password"),
-     *               @OA\Property(property="userTypeId", type="integer"),
+     *               @OA\Property(property="name"),
      *            ),
      *        ),
      *    ),
@@ -274,17 +187,17 @@ class UserController extends Controller
      * )
      */
 
-    function updateUser(Request $request)
+    function updateBrand(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateUpdateUser();
+            $validation =  $this->validateRequests->validateUpdateBrand();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $user = $this->userInterface->updateUser($request);
+            $user = $this->brandInterface->updateBrand($request);
             DB::commit();
 
             return $this->handleReturn(true, $user, "Updated successfully");
@@ -301,13 +214,13 @@ class UserController extends Controller
     // ----- delete user
     /**
      * @OA\Delete(
-     * path="/User/DeleteUser",
-     * tags={"User"},
+     * path="/Brand/DeleteBrand",
+     * tags={"Brand"},
      * security={{"bearerToken":{}}},
-     * summary="Delete User",
+     * summary="Delete Brand",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed add users",
+     *           description="Body request needed to delete brand",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
@@ -349,20 +262,20 @@ class UserController extends Controller
      * )
      */
 
-    function deleteUser(Request $request)
+    function deleteBrand(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateDeleteUser();
+            $validation =  $this->validateRequests->validateDeleteBrand();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $user = $this->userInterface->deleteUser($request);
+            $user = $this->brandInterface->deleteBrand($request);
             DB::commit();
 
-            return $this->handleReturn(true, $user, "Updated successfully");
+            return $this->handleReturn(true, $user, "Deleted successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);

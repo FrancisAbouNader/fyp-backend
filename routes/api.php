@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
@@ -28,7 +29,6 @@ Route::group(
         'prefix' => 'Authentication',
     ],
     function () {
-        //-- Auth Controller
         Route::get('/Logout', [UserController::class, 'logout']);
         Route::post('/UserAuthenticate', [UserController::class, 'login']);
     }
@@ -39,9 +39,21 @@ Route::group(
         'prefix' => 'User',
     ],
     function () {
-        //-- Auth Controller
         Route::post('/InsertUser', [UserController::class, 'insertUser']);
         Route::post('/UpdateUser', [UserController::class, 'UpdateUser']);
         Route::delete('/DeleteUser', [UserController::class, 'DeleteUser']);
+    }
+);
+
+Route::group(
+    [
+        'middleware' => ['api'],
+        'prefix' => 'Brand',
+    ],
+    function () {
+        Route::get('/GetBrands', [BrandController::class, 'getBrands']);
+        Route::post('/InsertBrand', [BrandController::class, 'insertBrand']);
+        Route::post('/UpdateBrand', [BrandController::class, 'UpdateBrand']);
+        Route::delete('/DeleteBrand', [BrandController::class, 'DeleteBrand']);
     }
 );
