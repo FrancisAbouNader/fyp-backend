@@ -5,33 +5,33 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Interfaces\ProductInterface;
-use App\Validations\ProductValidation;
+use App\Interfaces\CompanyInterface;
+use App\Models\Company;
+use App\Validations\CompanyValidation;
 
-
-class ProductController extends Controller
+class CompanyController extends Controller
 {
     // == DECLARATION
 
-    private $validateRequests, $ProductInterface;
-    public function __construct(ProductValidation $validateRequests, ProductInterface $ProductInterface) {
+    private $validateRequests, $CompanyInterface;
+    public function __construct(CompanyValidation $validateRequests, CompanyInterface $CompanyInterface) {
 
         $this->middleware('auth:api', ['except' => ['login']]);
 
         $this->validateRequests = $validateRequests;
-        $this->ProductInterface = $ProductInterface;
+        $this->CompanyInterface = $CompanyInterface;
     }
 //
 
 // == GET
 
 
-    // ----- get product type
+    // ----- get brands
     /**
      * @OA\Get(
-     *      path="/Product/GetProduct",
-     *      tags={"Product"},
-     *      summary="get all product types",
+     *      path="/Customers/GetCustomers",
+     *      tags={"Customers"},
+     *      summary="get all Customers",
      *
      *      @OA\Response(
      *          response="200",
@@ -50,13 +50,13 @@ class ProductController extends Controller
      *      ),
      * )
      */
-    function getProduct(Request $request)
+    function getCompany(Request $request)
     {
         try {
 
-            $product = $this->ProductInterface->getProduct($request);
+            $company = $this->CompanyInterface->getCompany($request);
             
-            return $this->handleReturn(true, $product, null);
+            return $this->handleReturn(true, $company, null);
         } catch (Exception $ex) {
             return $this->reportError($ex);
         }
@@ -66,33 +66,22 @@ class ProductController extends Controller
 
 // == EDIT
 
-    // ----- insert product
+    // ----- insert Customers
     /**
      * @OA\Post(
-     * path="/Product/InsertProduct",
-     * tags={"Product"},
+     * path="/Customers/AddCustomer",
+     * tags={"Customers"},
      * security={{"bearerToken":{}}},
-     * summary="Create a new product types",
+     * summary="Create a new Customers",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed to create a new brand",
+     *           description="Body request needed to create a new Customers",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
      *               type="object",
-     *               @OA\Property(property="productName",description="productName"),
-     *               @OA\Property(property="modelNumber",description="modelNumber"),
-     *               @OA\Property(property="packageHeight",description="packageHeight"),
-     *               @OA\Property(property="packageWidth",description="packageWidth"),
-     *               @OA\Property(property="packageLength",description="packageLength"),
-     *               @OA\Property(property="packageWeight",description="packageWeight"),
-     *               @OA\Property(property="productHeight",description="productHeight"),
-     *               @OA\Property(property="productWidth",description="productWidth"),
-     *               @OA\Property(property="productLength",description="productLength"),
-     *               @OA\Property(property="productWeight",description="productWeight"),
-     *               @OA\Property(property="description",description="description"),
-     *               @OA\Property(property="brandId",description="brandId"),
-     *               @OA\Property(property="productTypeId",description="productTypeId"),
+     *               @OA\Property(property="name",description="name"),
+     *               @OA\Property(property="location",description="location"),
      *            ),
      *        ),
      *    ),
@@ -128,54 +117,43 @@ class ProductController extends Controller
      *       ),
      * )
      */
-    function insertProduct(Request $request)
+    function insertCompany(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateInsertProduct();
+            $validation =  $this->validateRequests->validateInsertCompany();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $product = $this->ProductInterface->insertProduct($request);
+            $company = $this->CompanyInterface->insertCompany($request);
             DB::commit();
 
-            return $this->handleReturn(true, $product, "Created successfully");
+            return $this->handleReturn(true, $company, "Created successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);
         }
     }
 
-    // ----- update brand
+    // ----- update company
     /**
      * @OA\Post(
-     * path="/Product/UpdateProduct",
-     * tags={"Product"},
+     * path="/Customers/UpdateCustomer",
+     * tags={"Customers"},
      * security={{"bearerToken":{}}},
-     * summary="Update prouct tyep",
+     * summary="Update Customers",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed to update a product",
+     *           description="Body request needed to update a Customers",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
      *               type="object",
      *               @OA\Property(property="id", type="integer"),
-     *               @OA\Property(property="productName",description="productName"),
-     *               @OA\Property(property="modelNumber",description="modelNumber"),
-     *               @OA\Property(property="packageHeight",description="packageHeight"),
-     *               @OA\Property(property="packageWidth",description="packageWidth"),
-     *               @OA\Property(property="packageLength",description="packageLength"),
-     *               @OA\Property(property="packageWeight",description="packageWeight"),
-     *               @OA\Property(property="productHeight",description="productHeight"),
-     *               @OA\Property(property="productWidth",description="productWidth"),
-     *               @OA\Property(property="productLength",description="productLength"),
-     *               @OA\Property(property="productWeight",description="productWeight"),
-     *               @OA\Property(property="description",description="description"),
-     *               @OA\Property(property="brandId",description="brandId"),
-     *               @OA\Property(property="productTypeId",description="productTypeId"),
+     *               @OA\Property(property="name"),
+     *               @OA\Property(property="location"),
      *            ),
      *        ),
      *    ),
@@ -212,20 +190,20 @@ class ProductController extends Controller
      * )
      */
 
-    function updateProduct(Request $request)
+    function updateBrand(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateUpdateProduct();
+            $validation =  $this->validateRequests->validateUpdateCompany();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $Product = $this->ProductInterface->updateProduct($request);
+            $company = $this->CompanyInterface->updateCompany($request);
             DB::commit();
 
-            return $this->handleReturn(true, $Product, "Updated successfully");
+            return $this->handleReturn(true, $company, "Updated successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);
@@ -239,13 +217,13 @@ class ProductController extends Controller
     // ----- delete user
     /**
      * @OA\Delete(
-     * path="/Product/DeleteProduct",
-     * tags={"Product"},
+     * path="/Customers/DeleteCustomer",
+     * tags={"Customers"},
      * security={{"bearerToken":{}}},
-     * summary="Delete productTypes",
+     * summary="Delete Customers",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed to delete productTypes",
+     *           description="Body request needed to delete Customers",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
@@ -287,20 +265,20 @@ class ProductController extends Controller
      * )
      */
 
-    function deleteProduct(Request $request)
+    function deleteBrand(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateDeleteProduct();
+            $validation =  $this->validateRequests->validateDeleteCompany();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $Product = $this->ProductInterface->deleteProduct($request);
+            $company = $this->CompanyInterface->deleteCompany($request);
             DB::commit();
 
-            return $this->handleReturn(true, $Product, "Deleted successfully");
+            return $this->handleReturn(true, $company, "Deleted successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);

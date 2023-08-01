@@ -385,6 +385,379 @@
                 ]
             }
         },
+        "/Customers/GetCustomers": {
+            "get": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "get all Customers",
+                "operationId": "d5a3254ca270d19aebb0568c717ec9fb",
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/Customers/AddCustomer": {
+            "post": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Create a new Customers",
+                "operationId": "4cff058a2bcea59a680f55fd388419f6",
+                "requestBody": {
+                    "description": "Body request needed to create a new Customers",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "name"
+                                    },
+                                    "location": {
+                                        "description": "location"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/Customers/UpdateCustomer": {
+            "post": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Update Customers",
+                "operationId": "2cb2fb86a70365c1ef39f5e4030215e1",
+                "requestBody": {
+                    "description": "Body request needed to update a Customers",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {},
+                                    "location": {}
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/Customers/DeleteCustomer": {
+            "delete": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Delete Customers",
+                "operationId": "2fd7ad8e7e50efee516f055c0570b8ed",
+                "requestBody": {
+                    "description": "Body request needed to delete Customers",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
         "/Product/GetProduct": {
             "get": {
                 "tags": [
@@ -437,8 +810,44 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "name": {
-                                        "description": "name"
+                                    "productName": {
+                                        "description": "productName"
+                                    },
+                                    "modelNumber": {
+                                        "description": "modelNumber"
+                                    },
+                                    "packageHeight": {
+                                        "description": "packageHeight"
+                                    },
+                                    "packageWidth": {
+                                        "description": "packageWidth"
+                                    },
+                                    "packageLength": {
+                                        "description": "packageLength"
+                                    },
+                                    "packageWeight": {
+                                        "description": "packageWeight"
+                                    },
+                                    "productHeight": {
+                                        "description": "productHeight"
+                                    },
+                                    "productWidth": {
+                                        "description": "productWidth"
+                                    },
+                                    "productLength": {
+                                        "description": "productLength"
+                                    },
+                                    "productWeight": {
+                                        "description": "productWeight"
+                                    },
+                                    "description": {
+                                        "description": "description"
+                                    },
+                                    "brandId": {
+                                        "description": "brandId"
+                                    },
+                                    "productTypeId": {
+                                        "description": "productTypeId"
                                     }
                                 },
                                 "type": "object"
@@ -550,7 +959,45 @@
                                     "id": {
                                         "type": "integer"
                                     },
-                                    "name": {}
+                                    "productName": {
+                                        "description": "productName"
+                                    },
+                                    "modelNumber": {
+                                        "description": "modelNumber"
+                                    },
+                                    "packageHeight": {
+                                        "description": "packageHeight"
+                                    },
+                                    "packageWidth": {
+                                        "description": "packageWidth"
+                                    },
+                                    "packageLength": {
+                                        "description": "packageLength"
+                                    },
+                                    "packageWeight": {
+                                        "description": "packageWeight"
+                                    },
+                                    "productHeight": {
+                                        "description": "productHeight"
+                                    },
+                                    "productWidth": {
+                                        "description": "productWidth"
+                                    },
+                                    "productLength": {
+                                        "description": "productLength"
+                                    },
+                                    "productWeight": {
+                                        "description": "productWeight"
+                                    },
+                                    "description": {
+                                        "description": "description"
+                                    },
+                                    "brandId": {
+                                        "description": "brandId"
+                                    },
+                                    "productTypeId": {
+                                        "description": "productTypeId"
+                                    }
                                 },
                                 "type": "object"
                             }

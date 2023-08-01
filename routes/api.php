@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\Companycontroller;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -73,6 +74,19 @@ Route::group(
         Route::post('/InsertProduct', [ProductController::class, 'insertProduct']);
         Route::post('/UpdateProduct', [ProductController::class, 'updateProduct']);
         Route::delete('/DeleteProduct', [ProductController::class, 'deleteProduct']);
+       
+    }
+);
+Route::group(
+    [
+        'middleware' => ['api'],
+        'prefix' => 'Customers',
+    ],
+    function () {
+        Route::get('/GetCustomers', [CompanyController::class, 'getCompany']);
+        Route::post('/AddCustomer', [CompanyController::class, 'insertCompany']);
+        Route::post('/UpdateCustomer', [CompanyController::class, 'updateCompany']);
+        Route::delete('/DeleteCustomer', [CompanyController::class, 'deleteCompany']);
        
     }
 );

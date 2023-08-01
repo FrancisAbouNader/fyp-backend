@@ -12,6 +12,12 @@ class BrandRepository implements BrandInterface
     {
         return Brand::get();
     }
+
+    // - get brand by id 
+    function getBrandById($request)
+{
+    return Brand::where('id', $request->id)->get();
+}
     
     // ----- insert brand
     function insertBrand($request)

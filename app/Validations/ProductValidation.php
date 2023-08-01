@@ -11,19 +11,19 @@ class ProductValidation
     {
 
         return Validator::make(request()->all(), [
-            "name" => "required|string|unique:products,name,deleted_at,NULL",
-            'model_number' => "required|integer",
-            'package_height' => "required|integer",
-            'package_width' => "required|integer",
-            'package_length' => "required|integer",
-            'package_weight' => "required|integer",
-            'product_height'=>"required|integer",
-            'product_width' => "required|integer",
-            'product_length' =>"required|integer",
-            'product_weight' => "required|integer",
+            "productName" => "required|string|unique:products,name,deleted_at,NULL",
+            'modelNumber' => "required|integer",
+            'packageHeight' => "required|integer",
+            'packageWidth' => "required|integer",
+            'packageLength' => "required|integer",
+            'packageWeight' => "required|integer",
+            'productHeight'=>"required|integer",
+            'productWidth' => "required|integer",
+            'productLength' =>"required|integer",
+            'productWeight' => "required|integer",
             'description' => "required|string|",
-            "brand_id" => "required|integer",
-            "product_type_id" =>"required|integer",
+            "brandId" => "required|integer",
+            "productTypeId" =>"required|integer",
         ]);
     }
 
@@ -32,19 +32,19 @@ class ProductValidation
     {
         return Validator::make(request()->all(), [
             "id"    => "required|exists:products,id,deleted_at,NULL",
-            "name" => "required|string|unique:products,name,deleted_at,NULL",
-            'model_number' => "required|integer",
-            'package_height' => "required|integer",
-            'package_width' => "required|integer",
-            'package_length' => "required|integer",
-            'package_weight' => "required|integer",
-            'product_height'=>"required|integer",
-            'product_width' => "required|integer",
-            'product_length' =>"required|integer",
-            'product_weight' => "required|integer",
+            "productName" => "required|string|unique:products,name,deleted_at,NULL",
+            'modelNumber' => "required|integer",
+            'packageHeight' => "required|integer",
+            'packageWidth' => "required|integer",
+            'packageLength' => "required|integer",
+            'packageWeight' => "required|integer",
+            'productHeight'=>"required|integer",
+            'productWidth' => "required|integer",
+            'productLength' =>"required|integer",
+            'productWeight' => "required|integer",
             'description' => "required|string|",
-            "brand_id" => "required|integer",
-            "product_type_id" =>"required|integer",
+            "brandId" => "required|integer",
+            "productTypeId" =>"required|integer",
         ]);
     }
 

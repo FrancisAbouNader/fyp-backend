@@ -14,18 +14,6 @@ class BrandValidation
             "name" => "required|string|unique:brands,name,deleted_at,NULL"
         ]);
     }
-
-    function validateInsertUser()
-    {
-        return Validator::make(request()->all(), [
-            "email" => "required|email|unique:users,email",
-            "password" => "required|string",
-            "firstName" => "required|string",
-            "lastName" => "required|string",
-            "userName" => "required|string",
-            "userTypeId" => "required|integer|exists:roles,id"
-        ]);
-    }
     function validateUpdateBrand()
     {
         return Validator::make(request()->all(), [
