@@ -1,0 +1,11 @@
+[
+    {
+        "name": "pending"
+    },
+    {
+        "name": "accepted"
+    },
+    {
+        "name": "rejected"
+    }
+]

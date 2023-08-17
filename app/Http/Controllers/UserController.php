@@ -16,7 +16,7 @@ class UserController extends Controller
     private $validateRequests, $userInterface;
     public function __construct(UserValidation $validateRequests, UserInterface $userInterface) {
 
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'insertUser']]);
 
         $this->validateRequests = $validateRequests;
         $this->userInterface = $userInterface;
@@ -32,6 +32,7 @@ class UserController extends Controller
      *      path="/Authentication/Logout",
      *      tags={"Auth"},
      *      summary="logout user",
+     *      security={{"bearerToken":{}}},
      *
      *      @OA\Response(
      *          response="200",
@@ -69,6 +70,7 @@ class UserController extends Controller
      * @OA\Post(
      * path="/Authentication/UserAuthenticate",
      * tags={"Auth"},
+     * security={{"bearerToken":{}}},
      * summary="Login",
      *     @OA\RequestBody(
      *           required=true,

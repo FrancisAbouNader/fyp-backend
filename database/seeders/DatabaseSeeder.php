@@ -12,6 +12,8 @@ use Database\Seeders\PortalSeeder;
 use Database\Seeders\ProductSeeder;
 use Database\Seeders\CompanieSeeder;
 use Database\Seeders\ProductTypeSeeder;
+use Database\Seeders\UserRequestSeeder;
+use Database\Seeders\RequestStatusSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -28,7 +30,9 @@ class DatabaseSeeder extends Seeder
             ProductTypeSeeder::class,
             ProductSeeder::class,
             ItemSeeder::class,
-            UsersSeeder::class
+            UsersSeeder::class,
+            RequestStatusSeeder::class,
+            UserRequestSeeder::class
         ]);
     }
 }

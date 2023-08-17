@@ -9,8 +9,8 @@ use App\Models\Company;
 
 class CompanyRepository implements CompanyInterface
 {
-    // ----- get Company
-    function getCompany($request)
+    // ----- get Companies
+    function getCompanies($request)
     {
         return Company::get();
     }

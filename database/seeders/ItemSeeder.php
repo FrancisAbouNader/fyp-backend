@@ -31,6 +31,8 @@ class ItemSeeder extends Seeder
                         "name" => $value->name,
                         "imei" => $value->imei,
                         "product_id" => $value->product_id,
+                        "ownerable_type" => Company::class,
+                        "ownerable_id" => $value->company_id
                     ]);
 
                     $this->command->info(($counter * 100) / $total);

@@ -6,5 +6,61 @@
         "email" : "superadmin@yopmail.com",
         "password" : "admin",
         "role_id" : 1
+    },
+    {
+        "user_name" : "Admin",
+        "first_name" : "Admin",
+        "last_name" : "Admin",
+        "email" : "admin@yopmail.com",
+        "password" : "admin",
+        "role_id" : 2
+    },
+    {
+        "user_name" : "ManagerA",
+        "first_name" : "Manager",
+        "last_name" : "A",
+        "email" : "managera@yopmail.com",
+        "password" : "managera",
+        "role_id" : 3
+    },
+    {
+        "user_name" : "ManagerB",
+        "first_name" : "Manager",
+        "last_name" : "B",
+        "email" : "managerb@yopmail.com",
+        "password" : "managerb",
+        "role_id" : 3
+    },
+    {
+        "user_name" : "CustomerA",
+        "first_name" : "Customer",
+        "last_name" : "A",
+        "email" : "customera@yopmail.com",
+        "password" : "customera",
+        "role_id" : 4
+    },
+    {
+        "user_name" : "CustomerB",
+        "first_name" : "Customer",
+        "last_name" : "B",
+        "email" : "customerb@yopmail.com",
+        "password" : "customerb",
+        "role_id" : 4
+    },
+    {
+        "user_name" : "CustomerC",
+        "first_name" : "Customer",
+        "last_name" : "C",
+        "email" : "customerc@yopmail.com",
+        "password" : "customerc",
+        "role_id" : 4
+    },
+    {
+        "user_name" : "CustomerD",
+        "first_name" : "Customer",
+        "last_name" : "D",
+        "email" : "customerd@yopmail.com",
+        "password" : "customerd",
+        "role_id" : 4
     }
 ]

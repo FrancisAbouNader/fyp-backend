@@ -15,7 +15,7 @@ class BrandController extends Controller
     private $validateRequests, $brandInterface;
     public function __construct(BrandValidation $validateRequests, BrandInterface $brandInterface) {
 
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => []]);
 
         $this->validateRequests = $validateRequests;
         $this->brandInterface = $brandInterface;

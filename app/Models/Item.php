@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Item extends Model
 {
@@ -12,10 +13,23 @@ class Item extends Model
         'name',
         'imei',
         'product_id',
+        'ownerable_id',
+        'ownerable_type' 
     ];
 
-    public function products()
+    public function ownerable()
+    {
+        return $this->morphTo(__FUNCTION__, 'ownerable_type', 'ownerable_id'); 
+    }
+
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
 }

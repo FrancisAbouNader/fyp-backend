@@ -47,4 +47,12 @@ class UserValidation
             "id"    => "required|exists:users,id,deleted_at,NULL",
         ]);
     }
+
+    function validateGetCustomerRequests()
+    {
+        return Validator::make(request()->all(), [
+            "per_page"    => "nullable|integer",
+            "name"        => "nullable|string"
+        ]);
+    }
 }

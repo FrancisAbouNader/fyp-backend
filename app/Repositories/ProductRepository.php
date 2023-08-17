@@ -9,7 +9,7 @@ use App\Interfaces\ProductInterface;
 class ProductRepository implements ProductInterface
 {
     // ----- get products
-    function getProduct($request)
+    function getProducts($request)
     {
         return Product::get();
     }
@@ -20,7 +20,6 @@ class ProductRepository implements ProductInterface
         //-- insert products
         $ProductType = Product::create([
             "name" => $request->productName,
-            'model_number' => $request->modelNumber,
             'package_height' => $request->packageHeight,
             'package_width' => $request->packageWidth,
             'package_length' => $request->packageLength,
@@ -43,7 +42,6 @@ class ProductRepository implements ProductInterface
         //-- update products
         return Product::where('id', $request->id)->update([
             "name" => $request->name,
-            'model_number' => $request->model_number,
             'package_height' => $request->package_height,
             'package_width' => $request->package_width,
             'package_length' => $request->package_length,

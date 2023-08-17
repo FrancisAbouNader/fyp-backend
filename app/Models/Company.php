@@ -15,4 +15,9 @@ class Company extends Model
         'name',
         'location',
     ];
+
+    function productSales()
+    {
+        return $this->belongsToMany(Product::class, 'company_product_sales')->withPivot('quantity');
+    }
 }

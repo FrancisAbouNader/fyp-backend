@@ -13,7 +13,6 @@ class Product extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'model_number',
         'package_height',
         'package_width',
         'package_length',
@@ -40,5 +39,10 @@ class Product extends Model
     function items()
     {
         return $this->hasMany(Item::class);
+    }
+
+    function companySales()
+    {
+        return $this->belongsToMany(Company::class, 'company_product_sales')->withPivot('quantity');
     }
 }

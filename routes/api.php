@@ -1,12 +1,15 @@
 <?php
 
-use App\Http\Controllers\BrandController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\Companycontroller;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\UserRequestController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -60,6 +63,9 @@ Route::group(
         Route::post('/InsertProductType', [ProductTypeController::class, 'insertProductType']);
         Route::post('/UpdateProductType', [ProductTypeController::class, 'updateProductType']);
         Route::delete('/DeleteProductType', [ProductTypeController::class, 'deleteProductType']);
+
+        Route::get('/GetPendingCustomerRequests', [UserRequestController::class, 'getPendingCustomerRequests']);
+        Route::post('/ChangeRequestStatus', [UserRequestController::class, 'changeRequestStatus']);
     }
 );
 
@@ -70,23 +76,10 @@ Route::group(
         'prefix' => 'Product',
     ],
     function () {
-        Route::get('/GetProduct', [ProductController::class, 'getProduct']);
+        Route::get('/GetProducts', [ProductController::class, 'getProducts']);
         Route::post('/InsertProduct', [ProductController::class, 'insertProduct']);
         Route::post('/UpdateProduct', [ProductController::class, 'updateProduct']);
         Route::delete('/DeleteProduct', [ProductController::class, 'deleteProduct']);
-       
-    }
-);
-Route::group(
-    [
-        'middleware' => ['api'],
-        'prefix' => 'Customers',
-    ],
-    function () {
-        Route::get('/GetCustomers', [CompanyController::class, 'getCompany']);
-        Route::post('/AddCustomer', [CompanyController::class, 'insertCompany']);
-        Route::post('/UpdateCustomer', [CompanyController::class, 'updateCompany']);
-        Route::delete('/DeleteCustomer', [CompanyController::class, 'deleteCompany']);
        
     }
 );

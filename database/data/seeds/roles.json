@@ -10,5 +10,9 @@
     {
         "name" : "Warehouse Manager",
         "portal_id" : 3
+    },
+    {
+        "name" : "Customer",
+        "portal_id" : 4
     }
 ]

@@ -16,7 +16,7 @@ class ProductTypeController extends Controller
     private $validateRequests, $ProductTypeInterface;
     public function __construct(ProductTypeValidation $validateRequests, ProductTypeInterface $ProductTypeInterface) {
 
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => []]);
 
         $this->validateRequests = $validateRequests;
         $this->ProductTypeInterface = $ProductTypeInterface;
@@ -66,7 +66,7 @@ class ProductTypeController extends Controller
 
 // == EDIT
 
-    // ----- insert brand
+    // ----- insert product type
     /**
      * @OA\Post(
      * path="/Admin/InsertProductType",
@@ -136,7 +136,7 @@ class ProductTypeController extends Controller
         }
     }
 
-    // ----- update brand
+    // ----- update product type
     /**
      * @OA\Post(
      * path="/Admin/UpdateProductType",
@@ -212,7 +212,7 @@ class ProductTypeController extends Controller
 
 // == DELETE
 
-    // ----- delete user
+    // ----- delete product type
     /**
      * @OA\Delete(
      * path="/Admin/DeleteProductType",

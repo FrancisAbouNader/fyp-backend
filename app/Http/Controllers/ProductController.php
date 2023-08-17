@@ -11,12 +11,12 @@ use App\Validations\ProductValidation;
 
 class ProductController extends Controller
 {
-    // == DECLARATION
+// == DECLARATION
 
     private $validateRequests, $ProductInterface;
     public function __construct(ProductValidation $validateRequests, ProductInterface $ProductInterface) {
 
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => []]);
 
         $this->validateRequests = $validateRequests;
         $this->ProductInterface = $ProductInterface;
@@ -26,12 +26,12 @@ class ProductController extends Controller
 // == GET
 
 
-    // ----- get product type
+    // ----- get products
     /**
      * @OA\Get(
-     *      path="/Product/GetProduct",
+     *      path="/Product/GetProducts",
      *      tags={"Product"},
-     *      summary="get all product types",
+     *      summary="get all products",
      *
      *      @OA\Response(
      *          response="200",
@@ -50,13 +50,13 @@ class ProductController extends Controller
      *      ),
      * )
      */
-    function getProduct(Request $request)
+    function getProducts(Request $request)
     {
         try {
 
-            $product = $this->ProductInterface->getProduct($request);
+            $products = $this->ProductInterface->getProducts($request);
             
-            return $this->handleReturn(true, $product, null);
+            return $this->handleReturn(true, $products, null);
         } catch (Exception $ex) {
             return $this->reportError($ex);
         }
@@ -72,7 +72,7 @@ class ProductController extends Controller
      * path="/Product/InsertProduct",
      * tags={"Product"},
      * security={{"bearerToken":{}}},
-     * summary="Create a new product types",
+     * summary="Create a new product",
      *     @OA\RequestBody(
      *           required=true,
      *           description="Body request needed to create a new brand",
@@ -148,13 +148,13 @@ class ProductController extends Controller
         }
     }
 
-    // ----- update brand
+    // ----- update product
     /**
      * @OA\Post(
      * path="/Product/UpdateProduct",
      * tags={"Product"},
      * security={{"bearerToken":{}}},
-     * summary="Update prouct tyep",
+     * summary="Update product",
      *     @OA\RequestBody(
      *           required=true,
      *           description="Body request needed to update a product",
@@ -236,16 +236,16 @@ class ProductController extends Controller
 
 // == DELETE
 
-    // ----- delete user
+    // ----- delete product
     /**
      * @OA\Delete(
      * path="/Product/DeleteProduct",
      * tags={"Product"},
      * security={{"bearerToken":{}}},
-     * summary="Delete productTypes",
+     * summary="Delete product",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed to delete productTypes",
+     *           description="Body request needed to delete product",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
