@@ -29,7 +29,6 @@ class ProductSeeder extends Seeder
                     $counter++;
                     Product::create([
                         "name" => $value->name,
-                        "model_number"=> $value->model_number,
                         "package_height"=> $value->package_height,
                         "package_width"=> $value->package_width,
                         "package_length"=> $value->package_length,
@@ -40,7 +39,8 @@ class ProductSeeder extends Seeder
                         "product_weight"=> $value->product_weight,
                         "description"=> $value->description,
                         "brand_id"=> $value->brand_id,
-                        "product_type_id"=> $value->product_type_id ,                 ]);
+                        "product_type_id"=> $value->product_type_id ,                 
+                    ]);
 
                     $this->command->info(($counter * 100) / $total);
                 }

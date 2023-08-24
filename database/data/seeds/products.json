@@ -1,7 +1,6 @@
 [
     {
         "name":"Samsung laptop",
-        "model_number":1234344,
         "package_height":3,
         "package_width":3,
         "package_length":3,
@@ -16,7 +15,6 @@
     },
     {
         "name":"Samsung mouse",
-        "model_number":12343234,
         "package_height":3,
         "package_width":3,
         "package_length":3,
