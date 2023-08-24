@@ -31,6 +31,7 @@ class BrandController extends Controller
      *      path="/Admin/GetBrands",
      *      tags={"Admin"},
      *      summary="get all brands",
+     *      security={{"bearerToken":{}}},
      *
      *      @OA\Response(
      *          response="200",

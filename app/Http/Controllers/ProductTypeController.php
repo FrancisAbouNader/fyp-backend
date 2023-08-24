@@ -32,6 +32,7 @@ class ProductTypeController extends Controller
      *      path="/Admin/GetProductTypes",
      *      tags={"Admin"},
      *      summary="get all product types",
+     *      security={{"bearerToken":{}}},
      *
      *      @OA\Response(
      *          response="200",

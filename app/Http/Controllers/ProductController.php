@@ -32,6 +32,7 @@ class ProductController extends Controller
      *      path="/Product/GetProducts",
      *      tags={"Product"},
      *      summary="get all products",
+     *      security={{"bearerToken":{}}},
      *
      *      @OA\Response(
      *          response="200",

@@ -14,7 +14,7 @@ class RoleController extends Controller
     private $roleRepository;
     public function __construct(RoleInterface $roleRepository)
     {
-        $this->middleware('auth:api', ['except' => ['indexPortalRoles']]);
+        $this->middleware('auth:api', ['except' => ['getAllRoles']]);
 
         $this->roleRepository = $roleRepository;
     }

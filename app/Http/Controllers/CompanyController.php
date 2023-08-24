@@ -32,6 +32,7 @@ class CompanyController extends Controller
      *      path="/Company/GetCompanies",
      *      tags={"Companies"},
      *      summary="get all Companies",
+     *      security={{"bearerToken":{}}},
      *
      *      @OA\Response(
      *          response="200",
