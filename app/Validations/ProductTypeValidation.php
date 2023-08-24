@@ -11,7 +11,7 @@ class ProductTypeValidation
     {
 
         return Validator::make(request()->all(), [
-            "name" => "required|string|unique:product_types,name,deleted_at,NULL"
+            "name" => "required|string|unique:product_types,name"
         ]);
     }
 

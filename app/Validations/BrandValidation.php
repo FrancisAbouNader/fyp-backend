@@ -11,7 +11,7 @@ class BrandValidation
     {
 
         return Validator::make(request()->all(), [
-            "name" => "required|string|unique:brands,name,deleted_at,NULL"
+            "name" => "required|string"
         ]);
     }
     function validateUpdateBrand()
