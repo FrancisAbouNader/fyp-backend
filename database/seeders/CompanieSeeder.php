@@ -31,6 +31,7 @@ class CompanieSeeder extends Seeder
                     Company::create([
                         "name" => $value->name,
                         "location" => $value->location,
+                        "user_id" => $value->user_id
                     ]);
 
                     $this->command->info(($counter * 100) / $total);

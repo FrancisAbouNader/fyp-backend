@@ -9,6 +9,12 @@ use App\Models\UserRequest;
 class UserRepository implements UserInterface
 {
 
+    // ----- get all users
+    function getAllUsers($request)
+    {
+        return User::with('company')->with('role')->get();
+    }
+
     // ----- get customer requests
     function getPendingCustomerRequests($request)
     {

@@ -11,7 +11,7 @@ class ProductRepository implements ProductInterface
     // ----- get products
     function getProducts($request)
     {
-        return Product::get();
+        return Product::with('brand')->with('productType')->get();
     }
     
     // ----- insert products

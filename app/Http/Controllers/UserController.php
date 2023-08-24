@@ -61,6 +61,41 @@ class UserController extends Controller
         }
     }
 
+    // ----- get all users
+    /**
+     * @OA\Get(
+     *      path="/User/GetUserByInfos",
+     *      tags={"User"},
+     *      summary="get all users",
+     *      security={{"bearerToken":{}}},
+     *
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful Operation",
+     *          @OA\JsonContent(
+     *          type="object",
+     *          @OA\Property(property="success", type="boolean", description="status" ),
+     *          @OA\Property(property="data", type="object", description="data" ),
+     *          @OA\Property(property="message", type="string", description="message" ),
+     *          ),
+     *        ),
+     *
+     *     @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
+     */
+    function getAllUsers()
+    {
+        try {
+            $users = $this->userInterface->getAllUsers($request);
+            return $this->handleReturn(true, null, "Logged out Succesfully");
+        } catch (Exception $ex) {
+            return $this->reportError($ex);
+        }
+    }
+
 //
 
 // == EDIT

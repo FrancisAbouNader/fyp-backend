@@ -1,10 +1,12 @@
 [
     {
         "name" : "Company A",
-        "location" : "Baabda"
+        "location" : "Baabda",
+        "user_id" : 3
     },
     {
         "name" : "Company B",
-        "location" : "Aley"
+        "location" : "Aley",
+        "user_id" : 4
     }
 ]
