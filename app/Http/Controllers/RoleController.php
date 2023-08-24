@@ -66,7 +66,7 @@ class RoleController extends Controller
 
             $roles = $this->roleRepository->getAllRoles();
 
-            return $this->handleResponse($roles);
+            return $this->handleReturn(true, $roles, null);
         } catch (Exception $ex) {
             return $this->reportError($ex, 'getAllRoles', request());
         }
