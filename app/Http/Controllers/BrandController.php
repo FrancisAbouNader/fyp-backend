@@ -211,7 +211,7 @@ class BrandController extends Controller
 
 // == DELETE
 
-    // ----- delete user
+    // ----- delete brand
     /**
      * @OA\Delete(
      * path="/Admin/DeleteBrand",

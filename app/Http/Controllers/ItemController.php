@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
+use App\Interfaces\ItemInterface;
 use Illuminate\Support\Facades\DB;
 use App\Validations\ItemValidation;
 
@@ -24,12 +25,12 @@ class ItemController extends Controller
 // == GET
 
 
-    // ----- get products
+    // ----- get items
     /**
      * @OA\Get(
-     *      path="/Product/GetProducts",
+     *      path="/Item/GetItems",
      *      tags={"Product"},
-     *      summary="get all products",
+     *      summary="get all items",
      *
      *      @OA\Response(
      *          response="200",
@@ -48,13 +49,13 @@ class ItemController extends Controller
      *      ),
      * )
      */
-    function getProducts(Request $request)
+    function getItems(Request $request)
     {
         try {
 
-            $products = $this->ProductInterface->getProducts($request);
+            $items = $this->itemInterface->getItems($request);
             
-            return $this->handleReturn(true, $products, null);
+            return $this->handleReturn(true, $items, null);
         } catch (Exception $ex) {
             return $this->reportError($ex);
         }
@@ -64,33 +65,24 @@ class ItemController extends Controller
 
 // == EDIT
 
-    // ----- insert product
+    // ----- insert item
     /**
      * @OA\Post(
-     * path="/Product/InsertProduct",
-     * tags={"Product"},
+     * path="/Item/InsertItem",
+     * tags={"Item"},
      * security={{"bearerToken":{}}},
-     * summary="Create a new product",
+     * summary="Create a new item",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed to create a new brand",
+     *           description="Body request needed to create a new item",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
      *               type="object",
-     *               @OA\Property(property="productName",description="productName"),
-     *               @OA\Property(property="modelNumber",description="modelNumber"),
-     *               @OA\Property(property="packageHeight",description="packageHeight"),
-     *               @OA\Property(property="packageWidth",description="packageWidth"),
-     *               @OA\Property(property="packageLength",description="packageLength"),
-     *               @OA\Property(property="packageWeight",description="packageWeight"),
-     *               @OA\Property(property="productHeight",description="productHeight"),
-     *               @OA\Property(property="productWidth",description="productWidth"),
-     *               @OA\Property(property="productLength",description="productLength"),
-     *               @OA\Property(property="productWeight",description="productWeight"),
-     *               @OA\Property(property="description",description="description"),
-     *               @OA\Property(property="brandId",description="brandId"),
-     *               @OA\Property(property="productTypeId",description="productTypeId"),
+     *               @OA\Property(property="productId",description="productId"),
+     *               @OA\Property(property="imei",description="imei"),
+     *               @OA\Property(property="name",description="name"),
+     *               @OA\Property(property="companyId",description="companyId"),
      *            ),
      *        ),
      *    ),
@@ -126,54 +118,45 @@ class ItemController extends Controller
      *       ),
      * )
      */
-    function insertProduct(Request $request)
+    function insertItem(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateInsertProduct();
+            $validation =  $this->validateRequests->validateInsertItem();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $product = $this->ProductInterface->insertProduct($request);
+            $item = $this->itemInterface->insertItem($request);
             DB::commit();
 
-            return $this->handleReturn(true, $product, "Created successfully");
+            return $this->handleReturn(true, $item, "Created successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);
         }
     }
 
-    // ----- update product
+    // ----- update item
     /**
      * @OA\Post(
-     * path="/Product/UpdateProduct",
-     * tags={"Product"},
+     * path="/Item/UpdateItem",
+     * tags={"Item"},
      * security={{"bearerToken":{}}},
-     * summary="Update product",
+     * summary="Update item",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed to update a product",
+     *           description="Body request needed to update a item",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
      *               type="object",
      *               @OA\Property(property="id", type="integer"),
-     *               @OA\Property(property="productName",description="productName"),
-     *               @OA\Property(property="modelNumber",description="modelNumber"),
-     *               @OA\Property(property="packageHeight",description="packageHeight"),
-     *               @OA\Property(property="packageWidth",description="packageWidth"),
-     *               @OA\Property(property="packageLength",description="packageLength"),
-     *               @OA\Property(property="packageWeight",description="packageWeight"),
-     *               @OA\Property(property="productHeight",description="productHeight"),
-     *               @OA\Property(property="productWidth",description="productWidth"),
-     *               @OA\Property(property="productLength",description="productLength"),
-     *               @OA\Property(property="productWeight",description="productWeight"),
-     *               @OA\Property(property="description",description="description"),
-     *               @OA\Property(property="brandId",description="brandId"),
-     *               @OA\Property(property="productTypeId",description="productTypeId"),
+     *               @OA\Property(property="productId",description="productId"),
+     *               @OA\Property(property="imei",description="imei"),
+     *               @OA\Property(property="name",description="name"),
+     *               @OA\Property(property="companyId",description="companyId"),
      *            ),
      *        ),
      *    ),
@@ -210,20 +193,20 @@ class ItemController extends Controller
      * )
      */
 
-    function updateProduct(Request $request)
+    function updateItem(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateUpdateProduct();
+            $validation =  $this->validateRequests->validateUpdateItem();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $Product = $this->ProductInterface->updateProduct($request);
+            $item = $this->itemInterface->updateItem($request);
             DB::commit();
 
-            return $this->handleReturn(true, $Product, "Updated successfully");
+            return $this->handleReturn(true, $item, "Updated successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);
@@ -234,16 +217,16 @@ class ItemController extends Controller
 
 // == DELETE
 
-    // ----- delete product
+    // ----- delete item
     /**
      * @OA\Delete(
-     * path="/Product/DeleteProduct",
-     * tags={"Product"},
+     * path="/Item/DeleteItem",
+     * tags={"Item"},
      * security={{"bearerToken":{}}},
-     * summary="Delete product",
+     * summary="Delete Item",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed to delete product",
+     *           description="Body request needed to delete item",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
@@ -285,20 +268,20 @@ class ItemController extends Controller
      * )
      */
 
-    function deleteProduct(Request $request)
+    function deleteItem(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateDeleteProduct();
+            $validation =  $this->validateRequests->validateDeleteItem();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $Product = $this->ProductInterface->deleteProduct($request);
+            $item = $this->itemInterface->deleteItem($request);
             DB::commit();
 
-            return $this->handleReturn(true, $Product, "Deleted successfully");
+            return $this->handleReturn(true, $item, "Deleted successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);

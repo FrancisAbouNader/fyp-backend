@@ -26,7 +26,7 @@ class CompanyController extends Controller
 // == GET
 
 
-    // ----- get company
+    // ----- get companies
     /**
      * @OA\Get(
      *      path="/Company/GetCompanies",

@@ -11,7 +11,7 @@
     },
     "servers": [
         {
-            "url": "http://my-default-host.com",
+            "url": "http://127.0.0.1:8000/api",
             "description": "Main api documentation"
         }
     ],
@@ -385,13 +385,13 @@
                 ]
             }
         },
-        "/Customers/GetCustomers": {
+        "/Company/GetCompanies": {
             "get": {
                 "tags": [
-                    "Customers"
+                    "Companies"
                 ],
-                "summary": "get all Customers",
-                "operationId": "d5a3254ca270d19aebb0568c717ec9fb",
+                "summary": "get all Companies",
+                "operationId": "afc55cb133f9e98b62a7ed662b6ed929",
                 "responses": {
                     "200": {
                         "description": "Successful Operation",
@@ -423,13 +423,13 @@
                 }
             }
         },
-        "/Customers/AddCustomer": {
+        "/Company/AddCompany": {
             "post": {
                 "tags": [
-                    "Customers"
+                    "Companies"
                 ],
                 "summary": "Create a new Customers",
-                "operationId": "4cff058a2bcea59a680f55fd388419f6",
+                "operationId": "2472f777867526fa3d4fc5d2f24a839f",
                 "requestBody": {
                     "description": "Body request needed to create a new Customers",
                     "required": true,
@@ -536,15 +536,15 @@
                 ]
             }
         },
-        "/Customers/UpdateCustomer": {
+        "/Company/UpdateCompany": {
             "post": {
                 "tags": [
-                    "Customers"
+                    "Companies"
                 ],
-                "summary": "Update Customers",
-                "operationId": "2cb2fb86a70365c1ef39f5e4030215e1",
+                "summary": "Update Company",
+                "operationId": "1c8d26e434a95da5016be2a1ded23ee5",
                 "requestBody": {
-                    "description": "Body request needed to update a Customers",
+                    "description": "Body request needed to update a company",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -648,15 +648,15 @@
                 ]
             }
         },
-        "/Customers/DeleteCustomer": {
+        "/Company/DeleteCompany": {
             "delete": {
                 "tags": [
-                    "Customers"
+                    "Companies"
                 ],
                 "summary": "Delete Customers",
-                "operationId": "2fd7ad8e7e50efee516f055c0570b8ed",
+                "operationId": "fd25506b6c111790c678469b98b031b9",
                 "requestBody": {
-                    "description": "Body request needed to delete Customers",
+                    "description": "Body request needed to delete company",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -758,13 +758,565 @@
                 ]
             }
         },
-        "/Product/GetProduct": {
+        "/Admin/GetPendingCompanyRequests": {
+            "get": {
+                "tags": [
+                    "Requests"
+                ],
+                "summary": "pending requests",
+                "operationId": "89e9a40d3b6c868e3eae2270073f53b9",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/Admin/ChangeCompanRequestStatus": {
+            "post": {
+                "tags": [
+                    "Requests"
+                ],
+                "summary": "Login",
+                "operationId": "5cb37b0e7347701010f3a572f3cc373e",
+                "requestBody": {
+                    "description": "Body request needed login to the portals",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "email"
+                                    },
+                                    "password": {
+                                        "description": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/Item/GetItems": {
             "get": {
                 "tags": [
                     "Product"
                 ],
-                "summary": "get all product types",
-                "operationId": "77897e3fed79a6308ace3e7a186c8642",
+                "summary": "get all items",
+                "operationId": "a5c88234b46ff6dd90543c5fe658c34f",
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/Item/InsertItem": {
+            "post": {
+                "tags": [
+                    "Item"
+                ],
+                "summary": "Create a new item",
+                "operationId": "ce287b3d9ae5e8e996f85f26dbe96a2f",
+                "requestBody": {
+                    "description": "Body request needed to create a new item",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "productId": {
+                                        "description": "productId"
+                                    },
+                                    "imei": {
+                                        "description": "imei"
+                                    },
+                                    "name": {
+                                        "description": "name"
+                                    },
+                                    "companyId": {
+                                        "description": "companyId"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/Item/UpdateItem": {
+            "post": {
+                "tags": [
+                    "Item"
+                ],
+                "summary": "Update item",
+                "operationId": "d49d85a7098aed9950b058b8f8798aca",
+                "requestBody": {
+                    "description": "Body request needed to update a item",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "productId": {
+                                        "description": "productId"
+                                    },
+                                    "imei": {
+                                        "description": "imei"
+                                    },
+                                    "name": {
+                                        "description": "name"
+                                    },
+                                    "companyId": {
+                                        "description": "companyId"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/Item/DeleteItem": {
+            "delete": {
+                "tags": [
+                    "Item"
+                ],
+                "summary": "Delete Item",
+                "operationId": "d23c8e9264e0ec7173122c03b2c25aa3",
+                "requestBody": {
+                    "description": "Body request needed to delete item",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/Product/GetProducts": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "get all products",
+                "operationId": "22cb86c6b30a8bf56ff57a7f7fb0bcc3",
                 "responses": {
                     "200": {
                         "description": "Successful Operation",
@@ -801,7 +1353,7 @@
                 "tags": [
                     "Product"
                 ],
-                "summary": "Create a new product types",
+                "summary": "Create a new product",
                 "operationId": "9507e8a1856cc6e2db9649c06460b456",
                 "requestBody": {
                     "description": "Body request needed to create a new brand",
@@ -947,7 +1499,7 @@
                 "tags": [
                     "Product"
                 ],
-                "summary": "Update prouct tyep",
+                "summary": "Update product",
                 "operationId": "1d09ac2669e5cd4335ed5510e7d4e7f5",
                 "requestBody": {
                     "description": "Body request needed to update a product",
@@ -1096,10 +1648,10 @@
                 "tags": [
                     "Product"
                 ],
-                "summary": "Delete productTypes",
+                "summary": "Delete product",
                 "operationId": "c87b9502b119063587804f8c0c431008",
                 "requestBody": {
-                    "description": "Body request needed to delete productTypes",
+                    "description": "Body request needed to delete product",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -1670,7 +2222,12 @@
                     "401": {
                         "description": "Unauthenticated"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
             }
         },
         "/Authentication/UserAuthenticate": {
@@ -1778,7 +2335,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
             }
         },
         "/User/InsertUser": {
@@ -2029,6 +2591,159 @@
                                 "properties": {
                                     "id": {
                                         "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/Admin/GetPendingCustomerRequests": {
+            "get": {
+                "tags": [
+                    "Requests"
+                ],
+                "summary": "pending requests",
+                "operationId": "9503ed7ee500609e84c3f6c183955149",
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/admin/ChangeRequestStatus": {
+            "post": {
+                "tags": [
+                    "Requests"
+                ],
+                "summary": "Login",
+                "operationId": "3df388c32b25930ded3ad6fb41c8c4fb",
+                "requestBody": {
+                    "description": "Body request needed login to the portals",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "email"
+                                    },
+                                    "password": {
+                                        "description": "password"
                                     }
                                 },
                                 "type": "object"

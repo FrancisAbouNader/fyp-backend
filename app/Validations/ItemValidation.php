@@ -11,47 +11,29 @@ class ItemValidation
     {
 
         return Validator::make(request()->all(), [
-            "productName" => "required|string|unique:products,name,deleted_at,NULL",
-            'modelNumber' => "required|integer",
-            'packageHeight' => "required|integer",
-            'packageWidth' => "required|integer",
-            'packageLength' => "required|integer",
-            'packageWeight' => "required|integer",
-            'productHeight'=>"required|integer",
-            'productWidth' => "required|integer",
-            'productLength' =>"required|integer",
-            'productWeight' => "required|integer",
-            'description' => "required|string|",
-            "brandId" => "required|integer",
-            "productTypeId" =>"required|integer",
+            "productId" => "required|integer|unique:products,id,deleted_at,NULL",
+            'imei' => "required|string",
+            'name' => "required|string",
+            'companyId' => "required|integer|exists:companies,id"
         ]);
     }
 
 
-    function validateUpdateProduct()
+    function validateUpdateItem()
     {
         return Validator::make(request()->all(), [
-            "id"    => "required|exists:products,id,deleted_at,NULL",
-            "productName" => "required|string|unique:products,name,deleted_at,NULL",
-            'modelNumber' => "required|integer",
-            'packageHeight' => "required|integer",
-            'packageWidth' => "required|integer",
-            'packageLength' => "required|integer",
-            'packageWeight' => "required|integer",
-            'productHeight'=>"required|integer",
-            'productWidth' => "required|integer",
-            'productLength' =>"required|integer",
-            'productWeight' => "required|integer",
-            'description' => "required|string|",
-            "brandId" => "required|integer",
-            "productTypeId" =>"required|integer",
+            "id"    => "required|exists:items,id,deleted_at,NULL",
+            "productId" => "required|integer|exists:products,id,deleted_at,NULL",
+            'imei' => "required|string",
+            'name' => "required|string",
+            'companyId' => "required|integer|exists:companies,id"
         ]);
     }
 
-    function validateDeleteProduct()
+    function validateDeleteItem()
     {
         return Validator::make(request()->all(), [
-            "id"    => "required|exists:products,id,deleted_at,NULL",
+            "id"    => "required|exists:items,id,deleted_at,NULL",
         ]);
     }
 

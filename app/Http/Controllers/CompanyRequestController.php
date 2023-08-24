@@ -70,7 +70,7 @@ class CompanyRequestController extends Controller
     // ----- change request status
     /**
      * @OA\Post(
-     * path="/Admin/ChangeRequestStatus",
+     * path="/Admin/ChangeCompanRequestStatus",
      * tags={"Requests"},
      * security={{"bearerToken":{}}},
      * summary="Login",
