@@ -30,6 +30,7 @@ class ItemController extends Controller
      * @OA\Get(
      *      path="/Item/GetItems",
      *      tags={"Product"},
+     *      security={{"bearerToken":{}}},
      *      summary="get all items",
      *
      *      @OA\Response(

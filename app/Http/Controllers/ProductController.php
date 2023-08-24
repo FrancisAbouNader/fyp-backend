@@ -50,6 +50,7 @@ class ProductController extends Controller
      *      ),
      * )
      */
+    
     function getProducts(Request $request)
     {
         try {
