@@ -11,12 +11,12 @@ class UserRepository implements UserInterface
 
     function getUserById($id)
     {
-        return User::where('id', $id)->with('company')->with('roles')->first();
+        return User::where('id', $id)->with('company')->with('role')->first();
     }
     // ----- get all users
     function getAllUsers($request)
     {
-        return User::with('company')->with('roles')->get();
+        return User::with('company')->with('role')->get();
     }
 
     // ----- get customer requests
