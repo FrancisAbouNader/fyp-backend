@@ -83,6 +83,7 @@ class ProductController extends Controller
      *            @OA\Schema(
      *               type="object",
      *               @OA\Property(property="productName",description="productName"),
+     *               @OA\Property(property="modelNumber",description="modelNumber"),
      *               @OA\Property(property="packageHeight",description="packageHeight"),
      *               @OA\Property(property="packageWidth",description="packageWidth"),
      *               @OA\Property(property="packageLength",description="packageLength"),
@@ -165,6 +166,7 @@ class ProductController extends Controller
      *               type="object",
      *               @OA\Property(property="id", type="integer"),
      *               @OA\Property(property="productName",description="productName"),
+     *               @OA\Property(property="modelNumber",description="modelNumber"),
      *               @OA\Property(property="packageHeight",description="packageHeight"),
      *               @OA\Property(property="packageWidth",description="packageWidth"),
      *               @OA\Property(property="packageLength",description="packageLength"),

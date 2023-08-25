@@ -1385,6 +1385,9 @@
                                     "productName": {
                                         "description": "productName"
                                     },
+                                    "modelNumber": {
+                                        "description": "modelNumber"
+                                    },
                                     "packageHeight": {
                                         "description": "packageHeight"
                                     },
@@ -1530,6 +1533,9 @@
                                     },
                                     "productName": {
                                         "description": "productName"
+                                    },
+                                    "modelNumber": {
+                                        "description": "modelNumber"
                                     },
                                     "packageHeight": {
                                         "description": "packageHeight"
