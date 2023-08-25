@@ -34,9 +34,9 @@ class ItemRepository implements ItemInterface
         //-- insert item
         $item = Item::create([
             "imei" => $request->imei,
-            'product_id' => $request->productId,
+            'product_id' => $request->product_id,
             'name' => $request->name,
-            'ownerable_id' => $request->companyId,
+            'ownerable_id' => $request->company_id,
             'ownerable_type' => Company::class
         ]);
 
@@ -49,9 +49,9 @@ class ItemRepository implements ItemInterface
         //-- update item
         return Item::where('id', $request->id)->update([
             "imei" => $request->imei,
-            'product_id' => $request->productId,
+            'product_id' => $request->product_id,
             'name' => $request->name,
-            'ownerable_id' => $request->companyId,
+            'ownerable_id' => $request->company_id,
             'ownerable_type' => Company::class
         ]);
     }

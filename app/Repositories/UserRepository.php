@@ -41,11 +41,11 @@ class UserRepository implements UserInterface
         //-- create user
         $user = User::create([
             "email" => $request->email,
-            "first_name" => $request->firstName,
-            "last_name" => $request->lastName,
-            "user_name" => $request->userName,
+            "first_name" => $request->first_name,
+            "last_name" => $request->last_name,
+            "user_name" => $request->user_name,
             "password" => $request->password,
-            "role_id" => $request->userTypeId
+            "role_id" => $request->user_type_id
         ]);
 
         //-- assign role to user by spatie and by assiging a new row in model_has_roles
@@ -59,9 +59,9 @@ class UserRepository implements UserInterface
     {
         //-- update user
         return User::where('id', $request->id)->update([
-            "first_name" => $request->firstName,
-            "last_name" => $request->lastName,
-            "user_name" => $request->userName,
+            "first_name" => $request->first_name,
+            "last_name" => $request->last_name,
+            "user_name" => $request->user_name,
             "password" => $request->password,
         ]);
     }

@@ -18,10 +18,10 @@ class ItemValidation
     {
 
         return Validator::make(request()->all(), [
-            "productId" => "required|integer|unique:products,id,deleted_at,NULL",
+            "product_id" => "required|integer|unique:products,id,deleted_at,NULL",
             'imei' => "required|string",
             'name' => "required|string",
-            'companyId' => "required|integer|exists:companies,id"
+            'company_id' => "required|integer|exists:companies,id"
         ]);
     }
 
@@ -30,10 +30,10 @@ class ItemValidation
     {
         return Validator::make(request()->all(), [
             "id"    => "required|exists:items,id,deleted_at,NULL",
-            "productId" => "required|integer|exists:products,id,deleted_at,NULL",
+            "product_id" => "required|integer|exists:products,id,deleted_at,NULL",
             'imei' => "required|string",
             'name' => "required|string",
-            'companyId' => "required|integer|exists:companies,id"
+            'company_id' => "required|integer|exists:companies,id"
         ]);
     }
 

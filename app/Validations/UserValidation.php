@@ -30,10 +30,10 @@ class UserValidation
         return Validator::make(request()->all(), [
             "email" => "required|email|unique:users,email",
             "password" => "required|string",
-            "firstName" => "required|string",
-            "lastName" => "required|string",
-            "userName" => "required|string",
-            "userTypeId" => "required|integer|exists:roles,id"
+            "first_name" => "required|string",
+            "last_name" => "required|string",
+            "user_name" => "required|string",
+            "user_type_id" => "required|integer|exists:roles,id"
         ]);
     }
     function validateUpdateUser()
@@ -41,10 +41,10 @@ class UserValidation
         return Validator::make(request()->all(), [
             "id"    => "required|exists:users,id,deleted_at,NULL",
             "password" => "required|string",
-            "firstName" => "required|string",
-            "lastName" => "required|string",
-            "userName" => "required|string",
-            "userTypeId" => "required|integer|exists:roles,id"
+            "first_name" => "required|string",
+            "last_name" => "required|string",
+            "user_name" => "required|string",
+            "user_type_id" => "required|integer|exists:roles,id"
         ]);
     }
 
