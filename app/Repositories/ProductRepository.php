@@ -20,6 +20,7 @@ class ProductRepository implements ProductInterface
         //-- insert products
         $ProductType = Product::create([
             "name" => $request->productName,
+            'model_number' => $request->modelNumber,
             'package_height' => $request->packageHeight,
             'package_width' => $request->packageWidth,
             'package_length' => $request->packageLength,
@@ -42,6 +43,7 @@ class ProductRepository implements ProductInterface
         //-- update products
         return Product::where('id', $request->id)->update([
             "name" => $request->productName,
+            'model_number' => $request->modelNumber,
             'package_height' => $request->packageHeight,
             'package_width' => $request->packageWidth,
             'package_length' => $request->packageLength,

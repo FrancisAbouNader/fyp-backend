@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('model_number');
             $table->float('package_height');
             $table->float('package_width');
             $table->float('package_length');

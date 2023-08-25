@@ -29,6 +29,7 @@ class ProductSeeder extends Seeder
                     $counter++;
                     Product::create([
                         "name" => $value->name,
+                        "model_number"=> $value->model_number,
                         "package_height"=> $value->package_height,
                         "package_width"=> $value->package_width,
                         "package_length"=> $value->package_length,
