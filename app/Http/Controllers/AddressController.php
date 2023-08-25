@@ -3,34 +3,36 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Interfaces\BrandInterface;
 use Illuminate\Support\Facades\DB;
-use App\Validations\BrandValidation;
+use App\Interfaces\AddressInterface;
+use App\Models\Company;
+use App\Validations\AddressValidation;
 
-class BrandController extends Controller
+class AddressController extends Controller
 {
 // == DECLARATION
 
-    private $validateRequests, $brandInterface;
-    public function __construct(BrandValidation $validateRequests, BrandInterface $brandInterface) {
+    private $validateRequests, $AddressInterface;
+    public function __construct(AddressValidation $validateRequests, AddressInterface $AddressInterface) {
 
         $this->middleware('auth:api', ['except' => []]);
 
         $this->validateRequests = $validateRequests;
-        $this->brandInterface = $brandInterface;
+        $this->AddressInterface = $AddressInterface;
     }
 //
 
 // == GET
 
 
-    // ----- get brands
+    // ----- get Address
     /**
      * @OA\Get(
-     *      path="/Admin/GetBrands",
-     *      tags={"Admin"},
-     *      summary="get all brands",
+     *      path="/Address/GetAddresses",
+     *      tags={"Address"},
+     *      summary="get all addresses",
      *      security={{"bearerToken":{}}},
      *
      *      @OA\Response(
@@ -50,24 +52,72 @@ class BrandController extends Controller
      *      ),
      * )
      */
-    function getBrands(Request $request)
+    function getaddresses(Request $request)
     {
         try {
-
-            $brands = $this->brandInterface->getBrands($request);
+            $addresses = $this->AddressInterface->getAddresses($request);
             
-            return $this->handleReturn(true, $brands, null);
+            return $this->handleReturn(true, $addresses, null);
         } catch (Exception $ex) {
             return $this->reportError($ex);
         }
     }
 
-    // ----- get brand by id
+    // ----- get User Addresses
     /**
      * @OA\Get(
-     *      path="/Admin/GetBrandById",
-     *      tags={"Admin"},
-     *      summary="get all brands",
+     *      path="/Address/GetUserAddresses",
+     *      tags={"Address"},
+     *      summary="get all addresses",
+     *      security={{"bearerToken":{}}},
+     * 
+     *      @OA\Parameter(
+     *         name="Id",
+     *         in="query",
+     *         description="id",
+     *         required=true,
+     *      ),
+     *
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful Operation",
+     *          @OA\JsonContent(
+     *          type="object",
+     *          @OA\Property(property="success", type="boolean", description="status" ),
+     *          @OA\Property(property="data", type="object", description="data" ),
+     *          @OA\Property(property="message", type="string", description="message" ),
+     *          ),
+     *        ),
+     *
+     *     @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
+     */
+    function getUserAddresses(Request $request)
+    {
+        try {
+            $validation = $this->validateRequests->idValidation();
+            if ($validation->fails()) {
+                return $this->handleReturn(false, null, $validation->errors()->first());
+            }
+
+            
+            $addresses = $this->AddressInterface->getUserAddresses($request);
+            
+            return $this->handleReturn(true, $addresses, null);
+        } catch (Exception $ex) {
+            return $this->reportError($ex);
+        }
+    }
+
+    // ----- get address by id
+    /**
+     * @OA\Get(
+     *      path="/Address/GetAddressById",
+     *      tags={"Address"},
+     *      summary="get address",
      *      security={{"bearerToken":{}}},
      *
      *      @OA\Parameter(
@@ -93,7 +143,7 @@ class BrandController extends Controller
      *      ),
      * )
      */
-    function getBrandById(Request $request)
+    function getAddressById(Request $request)
     {
         try {
 
@@ -102,9 +152,9 @@ class BrandController extends Controller
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
-            $brand = $this->brandInterface->getBrandById($request->Id);
+            $Address = $this->AddressInterface->getAddressById($request->Id);
             
-            return $this->handleReturn(true, $brand, null);
+            return $this->handleReturn(true, $Address, null);
         } catch (Exception $ex) {
             return $this->reportError($ex);
         }
@@ -114,13 +164,13 @@ class BrandController extends Controller
 
 // == EDIT
 
-    // ----- insert brand
+    // ----- insert Address
     /**
      * @OA\Post(
-     * path="/Admin/InsertBrand",
-     * tags={"Admin"},
+     * path="/Address/InsertAddress",
+     * tags={"Address"},
      * security={{"bearerToken":{}}},
-     * summary="Create a new brand",
+     * summary="Create a new Address",
      *     @OA\RequestBody(
      *           required=true,
      *           description="Body request needed to create a new brand",
@@ -128,7 +178,12 @@ class BrandController extends Controller
      *            mediaType="application/json",
      *            @OA\Schema(
      *               type="object",
-     *               @OA\Property(property="name",description="name"),
+     *               @OA\Property(property="address_line",description="address_line"),
+     *               @OA\Property(property="second_address_line",description="second_address_line"),
+     *               @OA\Property(property="city",description="city"),
+     *               @OA\Property(property="country",description="country"),
+     *               @OA\Property(property="user_id",description="user_id"),
+     *               @OA\Property(property="company_id",description="company_id"),
      *            ),
      *        ),
      *    ),
@@ -164,42 +219,55 @@ class BrandController extends Controller
      *       ),
      * )
      */
-    function insertBrand(Request $request)
+    function insertAddress(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateInsertBrand();
+            $validation =  $this->validateRequests->validateInsertAddress();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $brand = $this->brandInterface->insertBrand($request);
+            if(isset($request->user_id))
+            {
+                $request->model_id = $request->user_id;
+                $request->model_type = User::class;
+            }
+            else {
+                $request->model_id = $request->company_id;
+                $request->model_type = Company::class;
+            }
+
+            $Address = $this->AddressInterface->insertAddress($request);
             DB::commit();
 
-            return $this->handleReturn(true, $brand, "Created successfully");
+            return $this->handleReturn(true, $Address, "Created successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);
         }
     }
 
-    // ----- update brand
+    // ----- update Address
     /**
      * @OA\Post(
-     * path="/Admin/UpdateBrand",
-     * tags={"Admin"},
+     * path="/Address/UpdateAddress",
+     * tags={"Address"},
      * security={{"bearerToken":{}}},
-     * summary="Update Brand",
+     * summary="Update Address",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed to update a brand",
+     *           description="Body request needed to update a Address",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
      *               type="object",
      *               @OA\Property(property="id", type="integer"),
-     *               @OA\Property(property="name"),
+     *               @OA\Property(property="address_line",description="address_line"),
+     *               @OA\Property(property="second_address_line",description="second_address_line"),
+     *               @OA\Property(property="city",description="city"),
+     *               @OA\Property(property="country",description="country"),
      *            ),
      *        ),
      *    ),
@@ -236,20 +304,20 @@ class BrandController extends Controller
      * )
      */
 
-    function updateBrand(Request $request)
+    function updateAddress(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateUpdateBrand();
+            $validation =  $this->validateRequests->validateUpdateAddress();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $user = $this->brandInterface->updateBrand($request);
+            $Address = $this->AddressInterface->updateAddress($request);
             DB::commit();
 
-            return $this->handleReturn(true, $user, "Updated successfully");
+            return $this->handleReturn(true, $Address, "Updated successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);
@@ -260,16 +328,16 @@ class BrandController extends Controller
 
 // == DELETE
 
-    // ----- delete brand
+    // ----- delete Address
     /**
      * @OA\Delete(
-     * path="/Admin/DeleteBrand",
-     * tags={"Admin"},
+     * path="/Address/DeleteAddress",
+     * tags={"Address"},
      * security={{"bearerToken":{}}},
-     * summary="Delete Brand",
+     * summary="Delete Address",
      *     @OA\RequestBody(
      *           required=true,
-     *           description="Body request needed to delete brand",
+     *           description="Body request needed to delete Address",
      *            @OA\MediaType(
      *            mediaType="application/json",
      *            @OA\Schema(
@@ -311,20 +379,20 @@ class BrandController extends Controller
      * )
      */
 
-    function deleteBrand(Request $request)
+    function deleteAddress(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateDeleteBrand();
+            $validation =  $this->validateRequests->validateDeleteAddress();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
             DB::beginTransaction();
-            $user = $this->brandInterface->deleteBrand($request);
+            $Address = $this->AddressInterface->deleteAddress($request);
             DB::commit();
 
-            return $this->handleReturn(true, $user, "Deleted successfully");
+            return $this->handleReturn(true, $Address, "Deleted successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);

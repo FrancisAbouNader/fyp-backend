@@ -13,6 +13,9 @@ class Address extends Model
 
     protected $fillable = [
         "address_line",
+        "second_address_line",
+        "city",
+        "country",
         "model_type",
         "model_id"
     ];

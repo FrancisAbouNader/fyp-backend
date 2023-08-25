@@ -6,6 +6,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Companycontroller;
 use App\Http\Controllers\ProductController;
 use App\Interfaces\CompanyRequestInterface;
@@ -92,6 +93,22 @@ Route::group(
         Route::post('/InsertProduct', [ProductController::class, 'insertProduct']);
         Route::post('/UpdateProduct', [ProductController::class, 'updateProduct']);
         Route::delete('/DeleteProduct', [ProductController::class, 'deleteProduct']);
+       
+    }
+);
+
+Route::group(
+    [
+        'middleware' => ['api'],
+        'prefix' => 'Address',
+    ],
+    function () {
+        Route::get('/GetAddresses', [AddressController::class, 'getAddresses']);
+        Route::get('/GetUserAddresses', [AddressController::class, 'GetUserAddresses']);
+        Route::get('/GetAddressById', [AddressController::class, 'getAddressById']);
+        Route::post('/InsertAddress', [AddressController::class, 'insertAddress']);
+        Route::post('/UpdateAddress', [AddressController::class, 'updateAddress']);
+        Route::delete('/DeleteAddress', [AddressController::class, 'deleteAddress']);
        
     }
 );
