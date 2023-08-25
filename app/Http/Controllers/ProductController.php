@@ -129,7 +129,8 @@ class ProductController extends Controller
      *            mediaType="application/json",
      *            @OA\Schema(
      *               type="object",
-     *               @OA\Property(property="product_name",description="productName"),
+     *               @OA\Property(property="name",description="productName"),
+     *               @OA\Property(property="model_number",description="productName"),
      *               @OA\Property(property="package_height",description="packageHeight"),
      *               @OA\Property(property="package_width",description="packageWidth"),
      *               @OA\Property(property="package_length",description="packageLength"),
@@ -211,7 +212,8 @@ class ProductController extends Controller
      *            @OA\Schema(
      *               type="object",
      *               @OA\Property(property="id", type="integer"),
-     *               @OA\Property(property="product_name",description="productName"),
+     *               @OA\Property(property="name",description="productName"),
+     *               @OA\Property(property="model_number",description="productName"),
      *               @OA\Property(property="package_height",description="packageHeight"),
      *               @OA\Property(property="package_width",description="packageWidth"),
      *               @OA\Property(property="package_length",description="packageLength"),

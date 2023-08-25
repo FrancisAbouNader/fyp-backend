@@ -18,7 +18,7 @@ class ProductValidation
     {
 
         return Validator::make(request()->all(), [
-            "product_name" => "required|string|unique:products,name,NULL,id,deleted_at,NULL",
+            "name" => "required|string|unique:products,name,NULL,id,deleted_at,NULL",
             'model_number' => "required|integer",
             'package_height' => "required|integer",
             'package_width' => "required|integer",
@@ -39,7 +39,7 @@ class ProductValidation
     {
         return Validator::make(request()->all(), [
             "id"    => "required|exists:products,id,deleted_at,NULL",
-            "product_name" => "required|string|unique:products,name," . request()->id,
+            "name" => "required|string|unique:products,name," . request()->id,
             'model_number' => "required|integer",
             'package_height' => "required|integer",
             'package_width' => "required|integer",
