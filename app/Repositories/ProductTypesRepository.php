@@ -8,6 +8,10 @@ use App\Interfaces\ProductTypeInterface;
 
 class ProductTypesRepository implements ProductTypeInterface
 {
+    function getProductTypeById($id)
+    {
+        return ProductType::where('id', $id)->first();
+    }
     // ----- get products
     function getProductType($request)
     {

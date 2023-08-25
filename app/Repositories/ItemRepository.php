@@ -15,6 +15,13 @@ class ItemRepository implements ItemInterface
         return Item::with('product')->get();
     }
 
+    // ----- get item by id 
+    function getItemById($id)
+    {
+        return Item::where('id', $id)->first();
+    }
+        
+
     // ----- get product items
     function getProductItems($request)
     {

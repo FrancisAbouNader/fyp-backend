@@ -8,6 +8,10 @@ use App\Interfaces\ProductInterface;
 
 class ProductRepository implements ProductInterface
 {
+    function getProductById($id)
+    {
+        return Product::where('id', $id)->first();
+    }
     // ----- get products
     function getProducts($request)
     {

@@ -9,6 +9,10 @@ use App\Models\UserRequest;
 class UserRepository implements UserInterface
 {
 
+    function getUserById($id)
+    {
+        return User::where('id', $id)->with('company')->with('roles')->first();
+    }
     // ----- get all users
     function getAllUsers($request)
     {

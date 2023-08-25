@@ -26,6 +26,53 @@ class ProductController extends Controller
 // == GET
 
 
+    // ----- get Product by id
+    /**
+     * @OA\Get(
+     *      path="/Product/GetProductById",
+     *      tags={"Product"},
+     *      summary="get Product",
+     *      security={{"bearerToken":{}}},
+     *
+     *      @OA\Parameter(
+     *         name="Id",
+     *         in="query",
+     *         description="id",
+     *         required=true,
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful Operation",
+     *          @OA\JsonContent(
+     *          type="object",
+     *          @OA\Property(property="success", type="boolean", description="status" ),
+     *          @OA\Property(property="data", type="object", description="data" ),
+     *          @OA\Property(property="message", type="string", description="message" ),
+     *          ),
+     *        ),
+     *
+     *     @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
+     */
+    function getProductById(Request $request)
+    {
+        try {
+            $validation = $this->validateRequests->idValidation();
+            if ($validation->fails())
+                return $this->handleReturn(false, null, $validation->errors()->first());
+            
+
+            $Product = $this->ProductInterface->getProductById($request->Id);
+            
+            return $this->handleReturn(true, $Product, null);
+        } catch (Exception $ex) {
+            return $this->reportError($ex);
+        }
+    }
+
     // ----- get products
     /**
      * @OA\Get(

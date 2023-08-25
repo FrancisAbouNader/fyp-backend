@@ -14,6 +14,14 @@ class CompanyRepository implements CompanyInterface
     {
         return Company::get();
     }
+
+    
+    // ----- get Company by id 
+    function getCompanyById($id)
+    {
+        return Company::where('id', $id)->first();
+    }
+    
     
     // ----- insert Company
     function insertCompany($request)

@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductValidation
 {
+    function idValidation()
+    {
+        return Validator::make(request()->all(), [
+            "Id" => "required|integer"
+        ]);
+    }
+    
     function validateInsertProduct()
     {
 

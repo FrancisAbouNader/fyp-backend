@@ -47,6 +47,7 @@ Route::group(
     ],
     function () {
         Route::get('/GetUserByInfos', [UserController::class, 'getAllUsers']);
+        Route::get('/GetUserById', [UserController::class, 'getUserById']);
         Route::post('/InsertUser', [UserController::class, 'insertUser']);
         Route::post('/UpdateUser', [UserController::class, 'UpdateUser']);
         Route::delete('/DeleteUser', [UserController::class, 'DeleteUser']);
@@ -60,10 +61,12 @@ Route::group(
     ],
     function () {
         Route::get('/GetBrands', [BrandController::class, 'getBrands']);
+        Route::get('/GetBrandById', [BrandController::class, 'getBrandById']);
         Route::post('/InsertBrand', [BrandController::class, 'insertBrand']);
         Route::post('/UpdateBrand', [BrandController::class, 'updateBrand']);
         Route::delete('/DeleteBrand', [BrandController::class, 'deleteBrand']);
         Route::get('/GetProductTypes', [ProductTypeController::class, 'getProductType']);
+        Route::get('/GetProductTypeById', [ProductTypeController::class, 'getProductTypeById']);
         Route::post('/InsertProductType', [ProductTypeController::class, 'insertProductType']);
         Route::post('/UpdateProductType', [ProductTypeController::class, 'updateProductType']);
         Route::delete('/DeleteProductType', [ProductTypeController::class, 'deleteProductType']);
@@ -85,6 +88,7 @@ Route::group(
     ],
     function () {
         Route::get('/GetProducts', [ProductController::class, 'getProducts']);
+        Route::get('/GetProductById', [ProductController::class, 'getProductById']);
         Route::post('/InsertProduct', [ProductController::class, 'insertProduct']);
         Route::post('/UpdateProduct', [ProductController::class, 'updateProduct']);
         Route::delete('/DeleteProduct', [ProductController::class, 'deleteProduct']);
@@ -99,6 +103,7 @@ Route::group(
     ],
     function () {
         Route::get('/GetCompanies', [CompanyController::class, 'getCompanies']);
+        Route::get('/GetCompanyById', [CompanyController::class, 'getCompanyById']);
         Route::post('/InsertCompany', [CompanyController::class, 'insertCompany']);
         Route::post('/UpdateCompany', [CompanyController::class, 'updateCompany']);
         Route::delete('/DeleteCompany', [CompanyController::class, 'deleteCompany']);
@@ -127,6 +132,7 @@ Route::group(
     ],
     function () {
         Route::get('/GetItems', [ItemController::class, 'getItems']);
+        Route::get('/GetItemById', [ItemController::class, 'getItemById']);
         Route::post('/InsertItem', [ItemController::class, 'insertItem']);
         Route::post('/UpdateItem', [ItemController::class, 'updateItem']);
         Route::delete('/DeleteItem', [ItemController::class, 'deleteItem']);

@@ -6,6 +6,13 @@ use Illuminate\Support\Facades\Validator;
 
 class UserValidation
 {
+    function idValidation()
+    {
+        return Validator::make(request()->all(), [
+            "Id" => "required|integer"
+        ]);
+    }
+    
     function validateLogin()
     {
         request()->merge([

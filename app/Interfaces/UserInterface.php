@@ -5,6 +5,7 @@ namespace App\Interfaces;
 interface UserInterface
 {
     function getAllUsers($request);
+    function getUserById($id);
     function getPendingCustomerRequests($request);
 
     function insertUser($request);

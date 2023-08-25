@@ -25,6 +25,54 @@ class ItemController extends Controller
 // == GET
 
 
+    // ----- get Item by id
+    /**
+     * @OA\Get(
+     *      path="/Item/GetItemById",
+     *      tags={"Admin"},
+     *      summary="get item",
+     *      security={{"bearerToken":{}}},
+     *
+     *      @OA\Parameter(
+     *         name="Id",
+     *         in="query",
+     *         description="id",
+     *         required=true,
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful Operation",
+     *          @OA\JsonContent(
+     *          type="object",
+     *          @OA\Property(property="success", type="boolean", description="status" ),
+     *          @OA\Property(property="data", type="object", description="data" ),
+     *          @OA\Property(property="message", type="string", description="message" ),
+     *          ),
+     *        ),
+     *
+     *     @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
+     */
+    function getItemById(Request $request)
+    {
+        try {
+
+            $validation = $this->validateRequests->idValidation();
+            if ($validation->fails()) {
+                return $this->handleReturn(false, null, $validation->errors()->first());
+            }
+
+            $Item = $this->itemInterface->getItemById($request->Id);
+            
+            return $this->handleReturn(true, $Item, null);
+        } catch (Exception $ex) {
+            return $this->reportError($ex);
+        }
+    }
+    
     // ----- get items
     /**
      * @OA\Get(
