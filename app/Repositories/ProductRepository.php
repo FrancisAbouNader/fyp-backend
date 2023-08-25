@@ -41,18 +41,18 @@ class ProductRepository implements ProductInterface
     {
         //-- update products
         return Product::where('id', $request->id)->update([
-            "name" => $request->name,
-            'package_height' => $request->package_height,
-            'package_width' => $request->package_width,
-            'package_length' => $request->package_length,
-            'package_weight' => $request->package_weight,
-            'product_height'=> $request->product_height,
-            'product_width' => $request->product_width,
-            'product_length' => $request->product_length,
-            'product_weight' => $request->product_weight,
+            "name" => $request->productName,
+            'package_height' => $request->packageHeight,
+            'package_width' => $request->packageWidth,
+            'package_length' => $request->packageLength,
+            'package_weight' => $request->packageWeight,
+            'product_height'=> $request->productHeight,
+            'product_width' => $request->productWidth,
+            'product_length' => $request->productLength,
+            'product_weight' => $request->productWeight,
             'description' => $request->description,
-            "brand_id" => $request->brand_id,
-            "product_type_id" => $request->product_type_id,
+            "brand_id" => $request->brandId,
+            "product_type_id" => $request->productTypeId,
         ]);
     }
     

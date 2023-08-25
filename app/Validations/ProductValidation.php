@@ -11,7 +11,7 @@ class ProductValidation
     {
 
         return Validator::make(request()->all(), [
-            "productName" => "required|string|unique:products,name,id,NULL,deleted_at,NULL",
+            "productName" => "required|string|unique:products,name,NULL,id,deleted_at,NULL",
             'packageHeight' => "required|integer",
             'packageWidth' => "required|integer",
             'packageLength' => "required|integer",
@@ -20,7 +20,7 @@ class ProductValidation
             'productWidth' => "required|integer",
             'productLength' =>"required|integer",
             'productWeight' => "required|integer",
-            'description' => "required|string|",
+            'description' => "required|string",
             "brandId" => "required|integer",
             "productTypeId" =>"required|integer",
         ]);
@@ -31,7 +31,7 @@ class ProductValidation
     {
         return Validator::make(request()->all(), [
             "id"    => "required|exists:products,id,deleted_at,NULL",
-            "productName" => "required|string",
+            "productName" => "required|string|unique:products,name," . request()->id,
             'packageHeight' => "required|integer",
             'packageWidth' => "required|integer",
             'packageLength' => "required|integer",
@@ -40,7 +40,7 @@ class ProductValidation
             'productWidth' => "required|integer",
             'productLength' =>"required|integer",
             'productWeight' => "required|integer",
-            'description' => "required|string|",
+            'description' => "required|string",
             "brandId" => "required|integer",
             "productTypeId" =>"required|integer",
         ]);
