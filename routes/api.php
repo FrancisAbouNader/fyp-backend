@@ -46,6 +46,7 @@ Route::group(
         'prefix' => 'User',
     ],
     function () {
+        Route::get('/GetUserByInfos', [UserController::class, 'getAllUsers']);
         Route::post('/InsertUser', [UserController::class, 'insertUser']);
         Route::post('/UpdateUser', [UserController::class, 'UpdateUser']);
         Route::delete('/DeleteUser', [UserController::class, 'DeleteUser']);

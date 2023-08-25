@@ -86,7 +86,7 @@ class UserController extends Controller
      *      ),
      * )
      */
-    function getAllUsers()
+    function getAllUsers(Request $request)
     {
         try {
             $users = $this->userInterface->getAllUsers($request);
