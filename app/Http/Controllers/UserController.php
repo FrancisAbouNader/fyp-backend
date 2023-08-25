@@ -90,7 +90,7 @@ class UserController extends Controller
     {
         try {
             $users = $this->userInterface->getAllUsers($request);
-            return $this->handleReturn(true, null, "Logged out Succesfully");
+            return $this->handleReturn(true, $users, null);
         } catch (Exception $ex) {
             return $this->reportError($ex);
         }

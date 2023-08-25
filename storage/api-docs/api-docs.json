@@ -51,7 +51,12 @@
                     "401": {
                         "description": "Unauthenticated"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
             }
         },
         "/Admin/InsertBrand": {
@@ -420,7 +425,12 @@
                     "401": {
                         "description": "Unauthenticated"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
             }
         },
         "/Company/AddCompany": {
@@ -924,7 +934,7 @@
         "/Item/GetItems": {
             "get": {
                 "tags": [
-                    "Product"
+                    "Item"
                 ],
                 "summary": "get all items",
                 "operationId": "a5c88234b46ff6dd90543c5fe658c34f",
@@ -1350,7 +1360,12 @@
                     "401": {
                         "description": "Unauthenticated"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
             }
         },
         "/Product/InsertProduct": {
@@ -1369,9 +1384,6 @@
                                 "properties": {
                                     "productName": {
                                         "description": "productName"
-                                    },
-                                    "modelNumber": {
-                                        "description": "modelNumber"
                                     },
                                     "packageHeight": {
                                         "description": "packageHeight"
@@ -1518,9 +1530,6 @@
                                     },
                                     "productName": {
                                         "description": "productName"
-                                    },
-                                    "modelNumber": {
-                                        "description": "modelNumber"
                                     },
                                     "packageHeight": {
                                         "description": "packageHeight"
@@ -1793,7 +1802,12 @@
                     "401": {
                         "description": "Unauthenticated"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
             }
         },
         "/Admin/InsertProductType": {
@@ -2235,6 +2249,49 @@
                 ]
             }
         },
+        "/User/GetUserByInfos": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "get all users",
+                "operationId": "a543d4520e5fdaa31bfadf8decc97da6",
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "status",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
         "/Authentication/UserAuthenticate": {
             "post": {
                 "tags": [
@@ -2340,12 +2397,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "bearerToken": []
-                    }
-                ]
+                }
             }
         },
         "/User/InsertUser": {

@@ -12,7 +12,7 @@ class UserRepository implements UserInterface
     // ----- get all users
     function getAllUsers($request)
     {
-        return User::with('company')->with('role')->get();
+        return User::with('company')->with('roles')->get();
     }
 
     // ----- get customer requests
