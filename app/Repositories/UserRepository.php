@@ -54,8 +54,8 @@ class UserRepository implements UserInterface
         return $user;
     }
 
-    // ----- insert customer
-    function insertCustomer($request)
+    // ----- insert Employee
+    function insertEmployee($request)
     {
         //-- create user
         $user = User::create([
@@ -70,6 +70,17 @@ class UserRepository implements UserInterface
         $user->assignRole(3);
 
         return $user;
+    }
+
+    // ----- update Employee
+    function updateEmployee($request)
+    {
+        //-- update user
+        return User::where('id', $request->id)->update([
+            "first_name" => $request->first_name,
+            "last_name" => $request->last_name,
+            "user_name" => $request->user_name,
+        ]);
     }
 
     // ----- update user

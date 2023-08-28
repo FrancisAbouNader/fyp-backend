@@ -16,7 +16,10 @@ class AddressValidation
     {
 
         return Validator::make(request()->all(), [
-            "name" => "required|string"
+            "address_line" => "required|string",
+            "second_address_line" => "required_without:address_line|string",
+            "city" => "required|string",
+            "country" => "required|string"
         ]);
     }
     function validateUpdateAddress()

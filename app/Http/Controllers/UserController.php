@@ -3,23 +3,28 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Interfaces\UserInterface;
 use Illuminate\Support\Facades\DB;
 use App\Validations\UserValidation;
+use App\Interfaces\AddressInterface;
 use Illuminate\Support\Facades\Auth;
+use App\Validations\AddressValidation;
 
 class UserController extends Controller
 {
 // == DECLARATION
 
-    private $validateRequests, $userInterface;
-    public function __construct(UserValidation $validateRequests, UserInterface $userInterface) {
+    private $validateRequests, $userInterface, $addressValidateRequests, $addressInterface;
+    public function __construct(UserValidation $validateRequests, UserInterface $userInterface, AddressValidation $addressValidateRequests, AddressInterface $addressInterface) {
 
         $this->middleware('auth:api', ['except' => ['login', 'insertUser']]);
 
         $this->validateRequests = $validateRequests;
+        $this->addressValidateRequests = $addressValidateRequests;
         $this->userInterface = $userInterface;
+        $this->addressInterface = $addressInterface;
     }
 //
 
@@ -301,13 +306,13 @@ class UserController extends Controller
         }
     }
 
-    // ----- insert customer
+    // ----- insert Employee
     /**
      * @OA\Post(
-     * path="/User/InsertCustomer",
+     * path="/Employee/AddEmployee",
      * tags={"User"},
      * security={{"bearerToken":{}}},
-     * summary="Add Customer",
+     * summary="Add Employee",
      *     @OA\RequestBody(
      *           required=true,
      *           description="Body request needed add users",
@@ -319,6 +324,12 @@ class UserController extends Controller
      *               @OA\Property(property="last_name"),
      *               @OA\Property(property="user_name"),
      *               @OA\Property(property="email"),
+     *               @OA\Property(property="addresses",type="array", @OA\Items(
+     *               @OA\Property(property="address_line",description="address_line"),
+     *               @OA\Property(property="second_address_line",description="second_address_line"),
+     *               @OA\Property(property="city",description="city"),
+     *               @OA\Property(property="country",description="country"),
+     *                  ),),
      *            ),
      *        ),
      *    ),
@@ -355,17 +366,22 @@ class UserController extends Controller
      * )
      */
 
-    function insertCustomer(Request $request)
+    function insertEmployee(Request $request)
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateCreateCustomer();
-            if ($validation->fails()) {
+            $validation =  $this->validateRequests->validateCreateEmployee();
+            if ($validation->fails())
                 return $this->handleReturn(false, null, $validation->errors()->first());
-            }
 
             DB::beginTransaction();
-            $user = $this->userInterface->insertCustomer($request);
+            $user = $this->userInterface->insertEmployee($request);
+            if(isset($request->addresses) && count($request->addresses))
+            {
+                $request->model_id = $user->id;
+                $request->model_type = User::class;
+                $this->addressInterface->insertAddresses($request);
+            }
             DB::commit();
 
             return $this->handleReturn(true, $user, "Created successfully");
@@ -442,6 +458,88 @@ class UserController extends Controller
 
             DB::beginTransaction();
             $user = $this->userInterface->updateUser($request);
+            DB::commit();
+
+            return $this->handleReturn(true, $user, "Updated successfully");
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return $this->reportError($ex);
+        }
+    }
+
+    // ----- update Employee
+    /**
+     * @OA\Post(
+     * path="/Employee/UpdateEmployee",
+     * tags={"User"},
+     * security={{"bearerToken":{}}},
+     * summary="Update Employee",
+     *     @OA\RequestBody(
+     *           required=true,
+     *           description="Body request needed add users",
+     *            @OA\MediaType(
+     *            mediaType="application/json",
+     *            @OA\Schema(
+     *               type="object",
+     *               @OA\Property(property="id", type="integer"),
+     *               @OA\Property(property="first_name"),
+     *               @OA\Property(property="last_name"),
+     *               @OA\Property(property="user_name"),
+     *               @OA\Property(property="addresses",type="array", @OA\Items(
+     *               @OA\Property(property="address_line",description="address_line"),
+     *               @OA\Property(property="second_address_line",description="second_address_line"),
+     *               @OA\Property(property="city",description="city"),
+     *               @OA\Property(property="country",description="country"),
+     *                  ),),
+     *            ),
+     *        ),
+     *    ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful Operation",
+     *          @OA\JsonContent(
+     *          type="object",
+     *          @OA\Property(property="success", type="boolean", description="status" ),
+     *          @OA\Property(property="data", type="object", description="data" ),
+     *          @OA\Property(property="message", type="string", description="message" ),
+     *          ),
+     *        ),
+     *       @OA\Response(
+     *          response="422",
+     *          description="Unprocessable Entity",
+     *          @OA\JsonContent(
+     *          type="object",
+     *          @OA\Property(property="success", type="boolean", description="status" ),
+     *          @OA\Property(property="data",type="array",  @OA\Items( type="object"  ),description="data" ),
+     *          @OA\Property(property="message", type="string", description="message" ),
+     *          ),
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *          @OA\JsonContent(
+     *          type="object",
+     *          @OA\Property(property="success", type="boolean", description="status" ),
+     *          @OA\Property(property="data",type="array",  @OA\Items( type="object"  ),description="data" ),
+     *          @OA\Property(property="message", type="string", description="message" ),
+     *          ),
+     *       ),
+     * )
+     */
+
+    function updateEmployee(Request $request)
+    {
+        try {
+            //-- validation
+            $validation =  $this->validateRequests->validateUpdateEmployee();
+            if ($validation->fails())
+                return $this->handleReturn(false, null, $validation->errors()->first());
+
+            DB::beginTransaction();
+            $user = $this->userInterface->updateEmployee($request);
+            $request->model_id = $request->id;
+            $request->model_type = User::class;
+            $this->addressInterface->updateEmployeeAddresses($request);
             DB::commit();
 
             return $this->handleReturn(true, $user, "Updated successfully");

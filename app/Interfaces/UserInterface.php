@@ -9,7 +9,8 @@ interface UserInterface
     function getPendingCustomerRequests($request);
 
     function insertUser($request);
-    function insertCustomer($request);
+    function insertEmployee($request);
+    function updateEmployee($request);
     function updateUser($request);
     function deleteUser($request);
 }

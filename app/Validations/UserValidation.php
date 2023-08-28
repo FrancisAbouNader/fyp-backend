@@ -37,15 +37,38 @@ class UserValidation
         ]);
     }
 
-    function validateCreateCustomer()
+    function validateCreateEmployee()
     {
         return Validator::make(request()->all(), [
             "email" => "required|email|unique:users,email",
             "first_name" => "required|string",
             "last_name" => "required|string",
-            "user_name" => "required|string"
+            "user_name" => "required|string",
+            "addresses" => "nullable|array",
+            "addresses.*.address_line" => "required|string",
+            "addresses.*.second_address_line" => "required_without:address_line|string",
+            "addresses.*.city" => "required|string",
+            "addresses.*.country" => "required|string"
+
         ]);
     }
+
+    function validateUpdateEmployee()
+    {
+        return Validator::make(request()->all(), [
+            "id" => "required|integer|exists:users,id",
+            "first_name" => "required|string",
+            "last_name" => "required|string",
+            "user_name" => "required|string",
+            "addresses" => "nullable|array",
+            "addresses.*.address_line" => "required|string",
+            "addresses.*.second_address_line" => "required_without:address_line|string",
+            "addresses.*.city" => "required|string",
+            "addresses.*.country" => "required|string"
+
+        ]);
+    }
+
     function validateUpdateUser()
     {
         return Validator::make(request()->all(), [

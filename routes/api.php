@@ -59,6 +59,17 @@ Route::group(
 Route::group(
     [
         'middleware' => ['api'],
+        'prefix' => 'Employee',
+    ],
+    function () {
+        Route::post('/AddEmployee', [UserController::class, 'addEmployee']);
+        Route::post('/UpdateEmployee', [UserController::class, 'updateEmployee']);
+    }
+);
+
+Route::group(
+    [
+        'middleware' => ['api'],
         'prefix' => 'Admin',
     ],
     function () {
