@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Interfaces\AddressInterface;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\RoleInterface;
 use App\Interfaces\UserInterface;
@@ -18,6 +19,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Interfaces\ProductTypeInterface;
 use App\Interfaces\UserRequestInterface;
 use App\Interfaces\CompanyRequestInterface;
+use App\Repositories\AddressRepository;
 use App\Repositories\UserRequestRepository;
 use App\Repositories\ProductTypesRepository;
 use App\Repositories\CompanyRequestRepository;
@@ -40,6 +42,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ProductInterface::class, ProductRepository::class);
         $this->app->bind(ProductTypeInterface::class, ProductTypesRepository::class);
         $this->app->bind(UserRequestInterface::class, UserRequestRepository::class);
+        $this->app->bind(AddressInterface::class, AddressRepository::class);
     }
 
     /**

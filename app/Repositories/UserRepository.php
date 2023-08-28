@@ -19,6 +19,11 @@ class UserRepository implements UserInterface
         return User::with('company')->with('role')->get();
     }
 
+    function getAllEmployees($request)
+    {
+        return User::with('company')->with('role')->where('role_id', 3)->get();
+    }
+
     // ----- get customer requests
     function getPendingCustomerRequests($request)
     {

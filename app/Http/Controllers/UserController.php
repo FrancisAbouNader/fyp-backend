@@ -101,6 +101,41 @@ class UserController extends Controller
         }
     }
 
+    // ----- get all employees
+    /**
+     * @OA\Get(
+     *      path="/Employee/GetEmployees",
+     *      tags={"User"},
+     *      summary="get all users",
+     *      security={{"bearerToken":{}}},
+     *
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful Operation",
+     *          @OA\JsonContent(
+     *          type="object",
+     *          @OA\Property(property="success", type="boolean", description="status" ),
+     *          @OA\Property(property="data", type="object", description="data" ),
+     *          @OA\Property(property="message", type="string", description="message" ),
+     *          ),
+     *        ),
+     *
+     *     @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
+     */
+    function getAllEmployees(Request $request)
+    {
+        try {
+            $employees = $this->userInterface->getAllEmployees($request);
+            return $this->handleReturn(true, $employees, null);
+        } catch (Exception $ex) {
+            return $this->reportError($ex);
+        }
+    }
+
     // ----- get User by id
     /**
      * @OA\Get(
