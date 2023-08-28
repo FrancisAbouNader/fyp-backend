@@ -45,6 +45,7 @@ class UserRepository implements UserInterface
             "last_name" => $request->last_name,
             "user_name" => $request->user_name,
             "password" => $request->password,
+            "phone_number" => $request->phone_number,
             "role_id" => $request->user_type_id
         ]);
 
@@ -63,6 +64,7 @@ class UserRepository implements UserInterface
             "first_name" => $request->first_name,
             "last_name" => $request->last_name,
             "user_name" => $request->user_name,
+            "phone_number" => $request->phone_number,
             "role_id" => 3
         ]);
 
@@ -80,6 +82,7 @@ class UserRepository implements UserInterface
             "first_name" => $request->first_name,
             "last_name" => $request->last_name,
             "user_name" => $request->user_name,
+            "phone_number" => $request->phone_number,
         ]);
     }
 
@@ -92,6 +95,7 @@ class UserRepository implements UserInterface
             "last_name" => $request->last_name,
             "user_name" => $request->user_name,
             "password" => $request->password,
+            "phone_number" => $request->phone_number,
         ]);
     }
     

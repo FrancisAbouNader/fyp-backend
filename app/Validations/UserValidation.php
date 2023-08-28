@@ -30,6 +30,7 @@ class UserValidation
         return Validator::make(request()->all(), [
             "email" => "required|email|unique:users,email",
             "password" => "required|string",
+            "phone_number" => "nullable|string",
             "first_name" => "required|string",
             "last_name" => "required|string",
             "user_name" => "required|string",
@@ -42,6 +43,7 @@ class UserValidation
         return Validator::make(request()->all(), [
             "email" => "required|email|unique:users,email",
             "first_name" => "required|string",
+            "phone_number" => "nullable|string",
             "last_name" => "required|string",
             "user_name" => "required|string",
             "addresses" => "nullable|array",
@@ -58,6 +60,7 @@ class UserValidation
         return Validator::make(request()->all(), [
             "id" => "required|integer|exists:users,id",
             "first_name" => "required|string",
+            "phone_number" => "nullable|string",
             "last_name" => "required|string",
             "user_name" => "required|string",
             "addresses" => "nullable|array",
@@ -75,6 +78,7 @@ class UserValidation
             "id"    => "required|exists:users,id,deleted_at,NULL",
             "password" => "required|string",
             "first_name" => "required|string",
+            "phone_number" => "nullable|string",
             "last_name" => "required|string",
             "user_name" => "required|string",
             "user_type_id" => "required|integer|exists:roles,id"

@@ -249,6 +249,7 @@ class UserController extends Controller
      *               @OA\Property(property="user_name"),
      *               @OA\Property(property="password"),
      *               @OA\Property(property="email"),
+     *               @OA\Property(property="phone_number"),
      *               @OA\Property(property="user_type_id", type="integer"),
      *            ),
      *        ),
@@ -324,6 +325,7 @@ class UserController extends Controller
      *               @OA\Property(property="last_name"),
      *               @OA\Property(property="user_name"),
      *               @OA\Property(property="email"),
+     *               @OA\Property(property="phone_number"),
      *               @OA\Property(property="addresses",type="array", @OA\Items(
      *               @OA\Property(property="address_line",description="address_line"),
      *               @OA\Property(property="second_address_line",description="second_address_line"),
@@ -410,6 +412,7 @@ class UserController extends Controller
      *               @OA\Property(property="last_name"),
      *               @OA\Property(property="user_name"),
      *               @OA\Property(property="password"),
+     *               @OA\Property(property="phone_number"),
      *               @OA\Property(property="user_type_id", type="integer"),
      *            ),
      *        ),
@@ -485,6 +488,7 @@ class UserController extends Controller
      *               @OA\Property(property="first_name"),
      *               @OA\Property(property="last_name"),
      *               @OA\Property(property="user_name"),
+     *               @OA\Property(property="phone_number"),
      *               @OA\Property(property="addresses",type="array", @OA\Items(
      *               @OA\Property(property="address_line",description="address_line"),
      *               @OA\Property(property="second_address_line",description="second_address_line"),
