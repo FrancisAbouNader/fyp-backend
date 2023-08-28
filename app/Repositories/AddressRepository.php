@@ -50,10 +50,10 @@ class AddressRepository implements AddressInterface
         foreach($request->addresses as $address)
         {
             Address::create([
-                "address_line" => $address->address_line,
-                "second_address_line" => $address->second_address_line,
-                "city" => $address->city,
-                "country" => $address->country,
+                "address_line" => $address["address_line"],
+                "second_address_line" => $address["second_address_line"],
+                "city" => $address["city"],
+                "country" => $address["country"],
                 "model_id" => $request->model_id,
                 "model_type" => $request->model_type,
             ]);
@@ -68,25 +68,25 @@ class AddressRepository implements AddressInterface
         {
             foreach($request->addresses as $address)
             {
-                if(isset($address->id))
+                if(isset($address["id"]))
                 {
-                    $new_add = Address::where('id', $address->id)->update([
-                        "address_line" => $address->address_line,
-                        "second_address_line" => $address->second_address_line,
-                        "city" => $address->city,
-                        "country" => $address->country,
+                    $new_add = Address::where('id', $address["id"])->update([
+                        "address_line" => $address["address_line"],
+                        "second_address_line" => $address["second_address_line"],
+                        "city" => $address["city"],
+                        "country" => $address["country"],
                         "model_id" => $request->model_id,
                         "model_type" => $request->model_type,
                     ]);
-                    $addresses_ids_to_delete[] = $address->id;
+                    $addresses_ids_to_delete[] = $address["id"];
                 }
                 else
                 {
                     $new_add = Address::create([
-                        "address_line" => $address->address_line,
-                        "second_address_line" => $address->second_address_line,
-                        "city" => $address->city,
-                        "country" => $address->country,
+                        "address_line" => $address["address_line"],
+                        "second_address_line" => $address["second_address_line"],
+                        "city" => $address["city"],
+                        "country" => $address["country"],
                         "model_id" => $request->model_id,
                         "model_type" => $request->model_type,
                     ]);

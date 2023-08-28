@@ -2,6 +2,7 @@
 
 namespace App\Validations;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
 class UserValidation
@@ -64,6 +65,7 @@ class UserValidation
             "last_name" => "required|string",
             "user_name" => "required|string",
             "addresses" => "nullable|array",
+            "addresses.*.id" => "nullable|integer|exists:addresses,id,model_id," . request()->id . ",model_type," . User::class,
             "addresses.*.address_line" => "required|string",
             "addresses.*.second_address_line" => "required_without:address_line|string",
             "addresses.*.city" => "required|string",
