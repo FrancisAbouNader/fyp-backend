@@ -301,6 +301,80 @@ class UserController extends Controller
         }
     }
 
+    // ----- insert customer
+    /**
+     * @OA\Post(
+     * path="/User/InsertCustomer",
+     * tags={"User"},
+     * security={{"bearerToken":{}}},
+     * summary="Add Customer",
+     *     @OA\RequestBody(
+     *           required=true,
+     *           description="Body request needed add users",
+     *            @OA\MediaType(
+     *            mediaType="application/json",
+     *            @OA\Schema(
+     *               type="object",
+     *               @OA\Property(property="first_name"),
+     *               @OA\Property(property="last_name"),
+     *               @OA\Property(property="user_name"),
+     *               @OA\Property(property="email"),
+     *            ),
+     *        ),
+     *    ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful Operation",
+     *          @OA\JsonContent(
+     *          type="object",
+     *          @OA\Property(property="success", type="boolean", description="status" ),
+     *          @OA\Property(property="data", type="object", description="data" ),
+     *          @OA\Property(property="message", type="string", description="message" ),
+     *          ),
+     *        ),
+     *       @OA\Response(
+     *          response="422",
+     *          description="Unprocessable Entity",
+     *          @OA\JsonContent(
+     *          type="object",
+     *          @OA\Property(property="success", type="boolean", description="status" ),
+     *          @OA\Property(property="data",type="array",  @OA\Items( type="object"  ),description="data" ),
+     *          @OA\Property(property="message", type="string", description="message" ),
+     *          ),
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *          @OA\JsonContent(
+     *          type="object",
+     *          @OA\Property(property="success", type="boolean", description="status" ),
+     *          @OA\Property(property="data",type="array",  @OA\Items( type="object"  ),description="data" ),
+     *          @OA\Property(property="message", type="string", description="message" ),
+     *          ),
+     *       ),
+     * )
+     */
+
+    function insertCustomer(Request $request)
+    {
+        try {
+            //-- validation
+            $validation =  $this->validateRequests->validateCreateCustomer();
+            if ($validation->fails()) {
+                return $this->handleReturn(false, null, $validation->errors()->first());
+            }
+
+            DB::beginTransaction();
+            $user = $this->userInterface->insertCustomer($request);
+            DB::commit();
+
+            return $this->handleReturn(true, $user, "Created successfully");
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return $this->reportError($ex);
+        }
+    }
+
     // ----- update user
     /**
      * @OA\Post(

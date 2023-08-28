@@ -49,7 +49,25 @@ class UserRepository implements UserInterface
         ]);
 
         //-- assign role to user by spatie and by assiging a new row in model_has_roles
-        $user->assignRole($request->userTypeId);
+        $user->assignRole($request->user_type_id);
+
+        return $user;
+    }
+
+    // ----- insert customer
+    function insertCustomer($request)
+    {
+        //-- create user
+        $user = User::create([
+            "email" => $request->email,
+            "first_name" => $request->first_name,
+            "last_name" => $request->last_name,
+            "user_name" => $request->user_name,
+            "role_id" => 3
+        ]);
+
+        //-- assign role to user by spatie and by assiging a new row in model_has_roles
+        $user->assignRole(3);
 
         return $user;
     }

@@ -36,6 +36,16 @@ class UserValidation
             "user_type_id" => "required|integer|exists:roles,id"
         ]);
     }
+
+    function validateCreateCustomer()
+    {
+        return Validator::make(request()->all(), [
+            "email" => "required|email|unique:users,email",
+            "first_name" => "required|string",
+            "last_name" => "required|string",
+            "user_name" => "required|string"
+        ]);
+    }
     function validateUpdateUser()
     {
         return Validator::make(request()->all(), [

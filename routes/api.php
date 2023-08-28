@@ -50,6 +50,7 @@ Route::group(
         Route::get('/GetUserByInfos', [UserController::class, 'getAllUsers']);
         Route::get('/GetUserById', [UserController::class, 'getUserById']);
         Route::post('/InsertUser', [UserController::class, 'insertUser']);
+        Route::post('/InsertCustomer', [UserController::class, 'insertCustomer']);
         Route::post('/UpdateUser', [UserController::class, 'UpdateUser']);
         Route::delete('/DeleteUser', [UserController::class, 'DeleteUser']);
     }
