@@ -14,4 +14,15 @@ class UserRequestValidation
             "name"        => "nullable|string"
         ]);
     }
+
+    function validateinsertUserRequest()
+    {
+        return Validator::make(request()->all(), [
+            "user_id"                           => "required|integer|exists:users,id",
+            "company_id"                        => "required|integer|exists:companies,id",
+            "products"                          => "required|array",
+            "products.*.product_id"             => "required|integer|exists:products,id",
+            "products.*.quantity"               => "required|integer|min:1",
+        ]);
+    }
 }

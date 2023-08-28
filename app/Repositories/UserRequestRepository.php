@@ -8,6 +8,21 @@ use App\Interfaces\UserRequestInterface;
 class UserRequestRepository implements UserRequestInterface
 {
 
+    // ----- insert user request
+    function insertUserRequest($request)
+    {
+        $user_request = UserRequest::create([
+            "user_id" => $request->user_id,
+            "company_id" => $request->company_id,
+            "request_status_id" => 1
+        ]);
+
+        $user_request->products()->attach($request->products);
+
+        return $user_request;
+
+    }
+
     // ----- get customer requests
     function getPendingCustomerRequests($request)
     {

@@ -70,11 +70,11 @@ class UserRepository implements UserInterface
             "last_name" => $request->last_name,
             "user_name" => $request->user_name,
             "phone_number" => $request->phone_number,
-            "role_id" => 3
+            "role_id" => 4
         ]);
 
         //-- assign role to user by spatie and by assiging a new row in model_has_roles
-        $user->assignRole(3);
+        $user->assignRole(4);
 
         return $user;
     }

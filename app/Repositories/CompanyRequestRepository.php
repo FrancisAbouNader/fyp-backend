@@ -8,6 +8,20 @@ use App\Models\CompanyRequest;
 class CompanyRequestRepository implements CompanyRequestInterface
 {
 
+    // ----- insert company request
+    function insertCompanyRequest($request)
+    {
+        $company_request = CompanyRequest::create([
+            "company_to_id" => $request->company_to_id,
+            "company_from_id" => $request->company_from_id,
+            "request_status_id" => 1
+        ]);
+
+        $company_request->products()->attach($request->products);
+
+        return $company_request;
+    }
+
     // ----- get pending company requests
     function getPendingCompanyRequests($request)
     {

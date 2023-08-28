@@ -15,4 +15,15 @@ class CompanyRequestValidation
             "companyId"   => "required|integer|exists:companies,id"
         ]);
     }
+
+    function validateinsertCompanyRequest()
+    {
+        return Validator::make(request()->all(), [
+            "company_from_id"                   => "required|integer|exists:companies,id",
+            "company_to_id"                     => "required|integer|exists:companies,id",
+            "products"                          => "required|array",
+            "products.*.product_id"             => "required|integer|exists:products,id",
+            "products.*.quantity"               => "required|integer|min:1",
+        ]);
+    }
 }

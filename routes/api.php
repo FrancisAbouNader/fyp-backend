@@ -9,7 +9,6 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Companycontroller;
 use App\Http\Controllers\ProductController;
-use App\Interfaces\CompanyRequestInterface;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\CompanyRequestController;
@@ -87,8 +86,10 @@ Route::group(
 
         Route::get('/GetPendingCustomerRequests', [UserRequestController::class, 'getPendingCustomerRequests']);
         Route::post('/ChangeRequestStatus', [UserRequestController::class, 'changeRequestStatus']);
+        Route::post('/InsertUserRequest', [UserRequestController::class, 'InsertUserRequest']);
 
         Route::get('/GetPendingCompanyRequests', [CompanyRequestController::class, 'getPendingCompanyRequests']);
+        Route::post('/InsertCompanyRequest', [CompanyRequestController::class, 'insertCompanyRequest']);
         Route::post('/ChangeCompanRequestStatus', [CompanyRequestController::class, 'changeRequestStatus']);
 
     }
