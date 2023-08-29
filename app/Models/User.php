@@ -70,4 +70,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function addresses()
+    {
+        return $this->morphMany(Address::class, 'modeleable');
+    }
 }

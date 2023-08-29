@@ -20,7 +20,7 @@ class Address extends Model
         "model_id"
     ];
 
-    public function model()
+    public function modeleable()
     {
         return $this->morphTo(__FUNCTION__, 'model_type', 'model_id'); 
     }

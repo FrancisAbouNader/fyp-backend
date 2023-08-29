@@ -11,7 +11,7 @@ class UserRepository implements UserInterface
 
     function getUserById($id)
     {
-        return User::where('id', $id)->with('company')->with('role')->first();
+        return User::where('id', $id)->with('company')->with('role')->with('addresses')->first();
     }
     // ----- get all users
     function getAllUsers($request)
