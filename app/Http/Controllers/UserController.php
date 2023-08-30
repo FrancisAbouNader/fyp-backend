@@ -258,7 +258,7 @@ class UserController extends Controller
 
             DB::commit();
 
-            return $this->handleReturn(true, ["token" => $token, "user" => auth()->user()], "Logged in successfully");
+            return $this->handleReturn(true, ["token" => $token, "user" => auth()->user()->loads('company')], "Logged in successfully");
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);

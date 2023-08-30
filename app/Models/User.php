@@ -73,6 +73,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function addresses()
     {
-        return $this->morphMany(Address::class, 'modeleable');
+        return $this->morphMany(Address::class, 'model');
     }
 }
