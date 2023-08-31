@@ -27,4 +27,9 @@ class UserRequest extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    function requestStatus()
+    {
+        return $this->belongsTo(RequestStatus::class);
+    }
 }
