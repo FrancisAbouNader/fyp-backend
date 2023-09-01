@@ -40,6 +40,12 @@ class ProductController extends Controller
      *         description="id",
      *         required=true,
      *      ),
+     *      @OA\Parameter(
+     *         name="company_id",
+     *         in="query",
+     *         description="id",
+     *         required=false,
+     *      ),
      *      @OA\Response(
      *          response="200",
      *          description="Successful Operation",
@@ -65,7 +71,7 @@ class ProductController extends Controller
                 return $this->handleReturn(false, null, $validation->errors()->first());
             
 
-            $Product = $this->ProductInterface->getProductById($request->Id);
+            $Product = $this->ProductInterface->getProductById($request);
             
             return $this->handleReturn(true, $Product, null);
         } catch (Exception $ex) {
@@ -81,6 +87,12 @@ class ProductController extends Controller
      *      summary="get all products",
      *      security={{"bearerToken":{}}},
      *
+     *      @OA\Parameter(
+     *         name="company_id",
+     *         in="query",
+     *         description="id",
+     *         required=false,
+     *      ),
      *      @OA\Response(
      *          response="200",
      *          description="Successful Operation",
