@@ -31,4 +31,9 @@ class CompanyRequest extends Model
     {
         return $this->belongsTo(Company::class, "company_from_id");
     }
+
+    function requestStatus()
+    {
+        return $this->belongsTo(RequestStatus::class);
+    }
 }

@@ -25,7 +25,7 @@ class CompanyRequestRepository implements CompanyRequestInterface
     // ----- get pending company requests
     function getPendingCompanyRequests($request)
     {
-        $company_requests = CompanyRequest::where("request_status_id" , 1)->where('company_from_id', $request->companyId)->with('companyTo')->with('companyFrom');
+        $company_requests = CompanyRequest::where("request_status_id" , 1)->where('company_from_id', $request->companyId)->with('companyTo')->with('companyFrom')->with('requestStatus')->with('products');
 
         if(isset($request->name))
         {

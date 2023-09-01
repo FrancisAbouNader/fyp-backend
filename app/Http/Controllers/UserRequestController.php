@@ -150,8 +150,8 @@ class UserRequestController extends Controller
      *            mediaType="application/json",
      *            @OA\Schema(
      *               type="object",
-     *               @OA\Property(property="email",description="email"),
-     *               @OA\Property(property="password",description="password"),
+     *               @OA\Property(property="user_request_id"),
+     *               @OA\Property(property="request_status_id"),
      *            ),
      *        ),
      *    ),
