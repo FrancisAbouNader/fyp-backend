@@ -4,10 +4,11 @@ namespace App\Models;
 
 use App\Models\Item;
 use App\Models\Brand;
+use App\Models\Section;
 use App\Models\ProductType;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -46,5 +47,10 @@ class Product extends Model
     function companySales()
     {
         return $this->belongsToMany(Company::class, 'company_product_sales')->withPivot('quantity');
+    }
+
+    function sections()
+    {
+        return $this->hasMany(Section::class);
     }
 }

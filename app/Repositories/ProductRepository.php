@@ -8,14 +8,32 @@ use App\Interfaces\ProductInterface;
 
 class ProductRepository implements ProductInterface
 {
-    function getProductById($id)
+    function getProductById($request)
     {
-        return Product::where('id', $id)->first();
+        $product =  Product::where('id', $request->Id);
+
+        if(isset($request->company_id))
+            $product = $product->with(['sections' => function ($query) use ($request) {
+                $query->where('company_id', $request->company_id);
+            }]);
+        else
+            $product = $product->with('sections');
+
+        return $product->first();
+
     }
     // ----- get products
     function getProducts($request)
     {
-        return Product::with('brand')->with('productType')->get();
+        $products =  Product::with('brand')->with('productType');
+        if(isset($request->company_id))
+            $products = $products->with(['sections' => function ($query) use ($request) {
+                $query->where('company_id', $request->company_id);
+            }]);
+        else
+            $products = $products->with('sections');
+
+        return $products->get();
     }
     
     // ----- insert products

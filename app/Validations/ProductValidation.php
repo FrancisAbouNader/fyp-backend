@@ -10,10 +10,18 @@ class ProductValidation
     function idValidation()
     {
         return Validator::make(request()->all(), [
-            "Id" => "required|integer"
+            "Id" => "required|integer",
+            "company_id" => "nullable|integer|exists:companies,id"
         ]);
     }
     
+    function companyIdValidation()
+    {
+        return Validator::make(request()->all(), [
+            "company_id" => "nullable|integer|exists:companies,id"
+        ]);
+    }
+
     function validateInsertProduct()
     {
 

@@ -102,6 +102,9 @@ class ProductController extends Controller
     function getProducts(Request $request)
     {
         try {
+            $validation = $this->validateRequests->companyIdValidation();
+            if ($validation->fails())
+                return $this->handleReturn(false, null, $validation->errors()->first());
 
             $products = $this->ProductInterface->getProducts($request);
             
