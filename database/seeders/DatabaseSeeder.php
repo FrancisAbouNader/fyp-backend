@@ -10,6 +10,7 @@ use Database\Seeders\RolesSeeder;
 use Database\Seeders\UsersSeeder;
 use Database\Seeders\PortalSeeder;
 use Database\Seeders\ProductSeeder;
+use Database\Seeders\SectionSeeder;
 use Database\Seeders\CompanieSeeder;
 use Database\Seeders\ProductTypeSeeder;
 use Database\Seeders\UserRequestSeeder;
@@ -32,7 +33,8 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             ItemSeeder::class,
             RequestStatusSeeder::class,
-            UserRequestSeeder::class
+            UserRequestSeeder::class,
+            SectionSeeder::class
         ]);
     }
 }
