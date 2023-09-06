@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\CompanyRequestController;
+use App\Http\Controllers\SectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +92,12 @@ Route::group(
         Route::get('/GetPendingCompanyRequests', [CompanyRequestController::class, 'getPendingCompanyRequests']);
         Route::post('/InsertCompanyRequest', [CompanyRequestController::class, 'insertCompanyRequest']);
         Route::post('/ChangeCompanRequestStatus', [CompanyRequestController::class, 'changeRequestStatus']);
+
+        Route::get('/GetSections', [SectionController::class, 'getAllSections']);
+        Route::get('/GetSectionById', [SectionController::class, 'getSectionById']);
+        Route::post('/InsertSection', [SectionController::class, 'insertSection']);
+        Route::post('/UpdateSection', [SectionController::class, 'updateSection']);
+        Route::post('/SwapSections', [SectionController::class, 'swapSections']);
 
     }
 );

@@ -19,10 +19,12 @@ use Illuminate\Support\ServiceProvider;
 use App\Interfaces\ProductTypeInterface;
 use App\Interfaces\UserRequestInterface;
 use App\Interfaces\CompanyRequestInterface;
+use App\Interfaces\SectionInterface;
 use App\Repositories\AddressRepository;
 use App\Repositories\UserRequestRepository;
 use App\Repositories\ProductTypesRepository;
 use App\Repositories\CompanyRequestRepository;
+use App\Repositories\SectionRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -43,6 +45,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ProductTypeInterface::class, ProductTypesRepository::class);
         $this->app->bind(UserRequestInterface::class, UserRequestRepository::class);
         $this->app->bind(AddressInterface::class, AddressRepository::class);
+        $this->app->bind(SectionInterface::class, SectionRepository::class);
     }
 
     /**
