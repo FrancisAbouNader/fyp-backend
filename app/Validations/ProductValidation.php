@@ -22,6 +22,16 @@ class ProductValidation
         ]);
     }
 
+    function getProductsValidation()
+    {
+        return Validator::make(request()->all(), [
+            "company_id" => "nullable|integer|exists:companies,id",
+            "ProductName" => "nullable|string",
+            "BrandId" => "nullable|integer|exists:brands,id",
+            "ProductTypeId" => "nullable|integer|exists:product_types,id"
+        ]);
+    }
+
     function validateInsertProduct()
     {
 

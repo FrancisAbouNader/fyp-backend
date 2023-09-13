@@ -93,6 +93,24 @@ class ProductController extends Controller
      *         description="id",
      *         required=false,
      *      ),
+     *      @OA\Parameter(
+     *         name="ProductName",
+     *         in="query",
+     *         description="name",
+     *         required=false,
+     *      ),
+     *      @OA\Parameter(
+     *         name="BrandId",
+     *         in="query",
+     *         description="brand id",
+     *         required=false,
+     *      ),
+     *      @OA\Parameter(
+     *         name="ProductTypeId",
+     *         in="query",
+     *         description="ProductTypeId",
+     *         required=false,
+     *      ),
      *      @OA\Response(
      *          response="200",
      *          description="Successful Operation",
@@ -114,7 +132,7 @@ class ProductController extends Controller
     function getProducts(Request $request)
     {
         try {
-            $validation = $this->validateRequests->companyIdValidation();
+            $validation = $this->validateRequests->getProductsValidation();
             if ($validation->fails())
                 return $this->handleReturn(false, null, $validation->errors()->first());
 

@@ -33,6 +33,15 @@ class ProductRepository implements ProductInterface
         else
             $products = $products->with('sections');
 
+        if(isset($request->ProductName))
+            $products = $products->where("name", 'ILIKE', '%' . $request->ProductName . '%');
+        
+        if(isset($request->BrandId))
+            $products = $products->where("brand_id", $request->BrandId );
+        
+        if(isset($request->ProductTypeId))
+            $products = $products->where("product_type_id",$request->ProductTypeId );
+
         return $products->get();
     }
     
