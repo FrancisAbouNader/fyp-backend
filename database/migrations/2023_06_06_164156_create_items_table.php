@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('imei');
+            $table->boolean('is_sold')->default(false);
             $table->unsignedBigInteger('product_id');
             $table->morphs('ownerable');
             $table->foreign("product_id")->references('id')->on('products');

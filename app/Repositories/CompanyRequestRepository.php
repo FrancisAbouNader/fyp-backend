@@ -3,7 +3,9 @@
 namespace App\Repositories;
 
 use App\Interfaces\CompanyRequestInterface;
+use App\Models\Company;
 use App\Models\CompanyRequest;
+use App\Models\CompanyRequestProduct;
 
 class CompanyRequestRepository implements CompanyRequestInterface
 {
@@ -45,6 +47,18 @@ class CompanyRequestRepository implements CompanyRequestInterface
         }
 
         return isset($request->per_page) ? $company_requests->paginate($request->per_page) : $company_requests->get();
+    }
+    
+    // ----- change request status
+    function changeRequestStatus($request)
+    {
+        $company_request = CompanyRequest::find($request->company_request_id);
+
+        foreach($request->items as $item)
+        {
+            CompanyRequestProduct::where('company_request_id', $company_request->id)->where('product_id', $item["product_id"])->first()->attach($item["item_id"]);   
+        }
+        
     }
 
 }

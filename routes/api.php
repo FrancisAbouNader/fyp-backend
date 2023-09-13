@@ -91,7 +91,7 @@ Route::group(
 
         Route::get('/GetPendingCompanyRequests', [CompanyRequestController::class, 'getPendingCompanyRequests']);
         Route::post('/InsertCompanyRequest', [CompanyRequestController::class, 'insertCompanyRequest']);
-        Route::post('/ChangeCompanRequestStatus', [CompanyRequestController::class, 'changeRequestStatus']);
+        Route::post('/ChangeCompanyRequestStatus', [CompanyRequestController::class, 'changeRequestStatus']);
 
         Route::get('/GetSections', [SectionController::class, 'getAllSections']);
         Route::get('/GetSectionById', [SectionController::class, 'getSectionById']);
@@ -142,7 +142,7 @@ Route::group(
     function () {
         Route::get('/GetCompanies', [CompanyController::class, 'getCompanies']);
         Route::get('/GetCompanyById', [CompanyController::class, 'getCompanyById']);
-        Route::post('/InsertCompany', [CompanyController::class, 'insertCompany']);
+        Route::post('/AddCompany', [CompanyController::class, 'insertCompany']);
         Route::post('/UpdateCompany', [CompanyController::class, 'updateCompany']);
         Route::delete('/DeleteCompany', [CompanyController::class, 'deleteCompany']);
        

@@ -28,4 +28,14 @@ class CompanyRequestValidation
             "products.*.quantity"               => "required|integer|min:1",
         ]);
     }
+
+    function validateChangeRequest()
+    {
+        return Validator::make(request()->all(), [
+            "company_request_id"                    => "required|integer|exists:companies,id",
+            "items"                                         => "required|array",
+            "items.*.item_id"                            => "required|integer|exists:items,id",
+            "items.*.product_id"                            => "required|integer|exists:products,id",
+        ]);
+    }
 }

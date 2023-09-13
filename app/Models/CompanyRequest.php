@@ -36,4 +36,9 @@ class CompanyRequest extends Model
     {
         return $this->belongsTo(RequestStatus::class);
     }
+
+    function companyRequestProduct()
+    {
+        return $this->hasMany(CompanyRequestProduct::class);
+    }
 }

@@ -151,7 +151,7 @@ class CompanyRequestController extends Controller
     // ----- change request status
     /**
      * @OA\Post(
-     * path="/Admin/ChangeCompanRequestStatus",
+     * path="/Admin/ChangeCompanyRequestStatus",
      * tags={"Requests"},
      * security={{"bearerToken":{}}},
      * summary="Login",
@@ -162,8 +162,11 @@ class CompanyRequestController extends Controller
      *            mediaType="application/json",
      *            @OA\Schema(
      *               type="object",
-     *               @OA\Property(property="email",description="email"),
-     *               @OA\Property(property="password",description="password"),
+     *               @OA\Property(property="company_request_id"),
+     *               @OA\Property(property="items",type="array", @OA\Items(
+     *               @OA\Property(property="product_id", type="integer"),
+     *               @OA\Property(property="item_id", type="integer"),
+     *                  ),),
      *            ),
      *        ),
      *    ),
@@ -203,16 +206,16 @@ class CompanyRequestController extends Controller
     {
         try {
             //-- validation
-            // $validation =  $this->validateRequests->validateLogin();
-            // if ($validation->fails()) {
-            //     return $this->handleReturn(false, null, $validation->errors()->first());
-            // }
+            $validation =  $this->validateRequests->validateinsertCompanyRequest();
+            if ($validation->fails()) {
+                return $this->handleReturn(false, null, $validation->errors()->first());
+            }
 
             DB::beginTransaction();
-
+            $company_request = $this->companyRequestInterface->changeRequestStatus($request);
             DB::commit();
 
-            // return $this->handleReturn(true, $token, "Logged in successfully");
+            return $this->handleReturn(true, $company_request, null);
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);

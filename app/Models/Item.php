@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Item extends Model
 {
     use HasFactory;
+    
     protected $fillable = [
         'name',
         'imei',
         'product_id',
         'ownerable_id',
+        'is_sold',
         'ownerable_type' 
     ];
 

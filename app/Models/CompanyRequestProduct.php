@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Item;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CompanyRequestProduct extends Model
 {
@@ -25,6 +26,11 @@ class CompanyRequestProduct extends Model
     function companyRequest()
     {
         return $this->belongsTo(CompanyRequest::class);
+    }
+
+    function items()
+    {
+        return $this->belongsToMany(Item::class, "company_request_product_items");
     }
 
 }
