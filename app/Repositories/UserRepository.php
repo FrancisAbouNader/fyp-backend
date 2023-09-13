@@ -51,6 +51,7 @@ class UserRepository implements UserInterface
             "user_name" => $request->user_name,
             "password" => $request->password,
             "phone_number" => $request->phone_number,
+            "company_id" => $request->company_id,
             "role_id" => $request->user_type_id
         ]);
 

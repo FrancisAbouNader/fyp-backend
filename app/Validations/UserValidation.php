@@ -35,7 +35,8 @@ class UserValidation
             "first_name" => "required|string",
             "last_name" => "required|string",
             "user_name" => "required|string",
-            "user_type_id" => "required|integer|exists:roles,id"
+            "user_type_id" => "required|integer|exists:roles,id",
+            "company_id" => "nullable|integer|exists:companies,id"
         ]);
     }
 

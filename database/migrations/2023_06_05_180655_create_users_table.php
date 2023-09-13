@@ -22,11 +22,13 @@ return new class extends Migration
             $table->string('password')->nullable();
 
             $table->unsignedBigInteger("role_id");
+            $table->unsignedBigInteger("company_id")->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 

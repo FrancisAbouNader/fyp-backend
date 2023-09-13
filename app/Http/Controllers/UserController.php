@@ -286,6 +286,7 @@ class UserController extends Controller
      *               @OA\Property(property="email"),
      *               @OA\Property(property="phone_number"),
      *               @OA\Property(property="user_type_id", type="integer"),
+     *               @OA\Property(property="company_id", type="integer"),
      *            ),
      *        ),
      *    ),
