@@ -31,6 +31,7 @@ class UserRequestSeeder extends Seeder
                     $counter++;
                     $user_request = UserRequest::create([
                         "user_id" => $value->user_id,
+                        "company_id" => $value->company_id,
                         "request_status_id" => 1
                     ]);
 
