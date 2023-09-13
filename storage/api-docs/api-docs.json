@@ -1582,11 +1582,14 @@
                             "schema": {
                                 "properties": {
                                     "company_request_id": {},
-                                    "item_ids": {
+                                    "items": {
                                         "type": "array",
                                         "items": {
                                             "properties": {
-                                                "": {
+                                                "product_id": {
+                                                    "type": "integer"
+                                                },
+                                                "item_id": {
                                                     "type": "integer"
                                                 }
                                             },
@@ -1744,6 +1747,33 @@
                 ],
                 "summary": "get all items",
                 "operationId": "a5c88234b46ff6dd90543c5fe658c34f",
+                "parameters": [
+                    {
+                        "name": "CompanyId",
+                        "in": "query",
+                        "description": "id",
+                        "required": false
+                    },
+                    {
+                        "name": "IsSold",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "ProductIds[]",
+                        "in": "query",
+                        "description": "A list of product ids.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful Operation",

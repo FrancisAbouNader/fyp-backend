@@ -81,6 +81,24 @@ class ItemController extends Controller
      *      security={{"bearerToken":{}}},
      *      summary="get all items",
      *
+     *      @OA\Parameter(
+     *         name="CompanyId",
+     *         in="query",
+     *         description="id",
+     *         required=false,
+     *      ),
+     *      @OA\Parameter(
+     *        name="IsSold", in="query", required=false, @OA\Schema(type="boolean")
+     *     ),
+     *      @OA\Parameter(
+     *          name="ProductIds[]",
+     *          in="query",
+     *          description="A list of product ids.",
+     *          @OA\Schema(
+     *            type="array",
+     *            @OA\Items(type="integer")
+     *          )
+     *      ),
      *      @OA\Response(
      *          response="200",
      *          description="Successful Operation",
@@ -101,7 +119,11 @@ class ItemController extends Controller
     function getItems(Request $request)
     {
         try {
-
+            //-- validation
+            $validation =  $this->validateRequests->validateGetItems();
+            if ($validation->fails()) {
+                return $this->handleReturn(false, null, $validation->errors()->first());
+            }
             $items = $this->itemInterface->getItems($request);
             
             return $this->handleReturn(true, $items, null);

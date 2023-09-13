@@ -12,7 +12,24 @@ class ItemRepository implements ItemInterface
     // ----- get items
     function getItems($request)
     {
-        return Item::with('product')->get();
+        $items =  Item::with('product');
+        
+        if(isset($request->ProductIds))
+        {
+            $items = $items->whereIn('product_id', $request->ProductIds);
+        }
+
+        if(isset($request->CompanyId))
+        {
+            $items = $items->where('company_id', $request->CompanyId);
+        }
+
+        if(isset($request->IsSold))
+        {
+            $items = $items->where('is_sold', $request->IsSold);
+        }
+        
+        return $items->get();
     }
 
     // ----- get item by id 

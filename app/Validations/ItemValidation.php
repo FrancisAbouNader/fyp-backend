@@ -7,6 +7,16 @@ use Illuminate\Support\Facades\Validator;
 
 class ItemValidation
 {
+    function validateGetItems()
+    {
+        return Validator::make(request()->all(), [
+            "ProductIds" => "nullable|array",
+            "ProductIds.*" => "required|integer|exists:products,id",
+            "CompanyId" => "required|integer|exists:companies,id",
+            "IsSold" => "nullable|boolean"
+        ]);
+    }
+
     function idValidation()
     {
         return Validator::make(request()->all(), [
