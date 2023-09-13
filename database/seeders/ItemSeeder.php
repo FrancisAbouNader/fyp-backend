@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Item;
 use Exception;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Item;
+use App\Models\Company;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ItemSeeder extends Seeder
 {
