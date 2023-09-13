@@ -36,7 +36,7 @@ class CompanyRequestController extends Controller
      *        name="companyId", in="query", required=true, @OA\Schema(type="integer")
      *     ),
      *     @OA\Parameter(
-     *        name="companyToId", in="query", required=false, @OA\Schema(type="integer")
+     *        name="CompanyToId", in="query", required=false, @OA\Schema(type="integer")
      *     ),
      *     @OA\Parameter(
      *        name="RequestStatusId", in="query", required=false, @OA\Schema(type="integer")
