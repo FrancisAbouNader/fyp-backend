@@ -57,7 +57,7 @@ class CompanyRequestRepository implements CompanyRequestInterface
 
         foreach($request->items as $item)
         {
-            CompanyRequestProduct::where('company_request_id', $company_request->id)->where('product_id', $item["product_id"])->first()->attach($item["item_id"]);
+            CompanyRequestProduct::where('company_request_id', $company_request->id)->where('product_id', $item["product_id"])->first()->items()->attach($item["item_id"]);
             
             Item::where('id', $item["item_id"])->update([
                 "ownerable_id" => $company_request->company_to_id
