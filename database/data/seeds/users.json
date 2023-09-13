@@ -5,7 +5,8 @@
         "last_name" : "Admin",
         "email" : "superadmin@yopmail.com",
         "password" : "admin",
-        "role_id" : 1
+        "role_id" : 1,
+        "company_id" : null
     },
     {
         "user_name" : "Admin",
@@ -13,7 +14,17 @@
         "last_name" : "Admin",
         "email" : "admin@yopmail.com",
         "password" : "admin",
-        "role_id" : 2
+        "role_id" : 2,
+        "company_id" : 1
+    },
+    {
+        "user_name" : "AdminB",
+        "first_name" : "AdminB",
+        "last_name" : "AdminB",
+        "email" : "adminB@yopmail.com",
+        "password" : "adminB",
+        "role_id" : 2,
+        "company_id" : 2
     },
     {
         "user_name" : "ManagerA",
@@ -21,7 +32,8 @@
         "last_name" : "A",
         "email" : "managera@yopmail.com",
         "password" : "managera",
-        "role_id" : 3
+        "role_id" : 3,
+        "company_id" : 1
     },
     {
         "user_name" : "ManagerB",
@@ -29,7 +41,8 @@
         "last_name" : "B",
         "email" : "managerb@yopmail.com",
         "password" : "managerb",
-        "role_id" : 3
+        "role_id" : 3,
+        "company_id" : 2
     },
     {
         "user_name" : "CustomerA",
@@ -37,7 +50,8 @@
         "last_name" : "A",
         "email" : "customera@yopmail.com",
         "password" : "customera",
-        "role_id" : 4
+        "role_id" : 4,
+        "company_id" : null
     },
     {
         "user_name" : "CustomerB",
@@ -45,7 +59,8 @@
         "last_name" : "B",
         "email" : "customerb@yopmail.com",
         "password" : "customerb",
-        "role_id" : 4
+        "role_id" : 4,
+        "company_id" : null
     },
     {
         "user_name" : "CustomerC",
@@ -53,7 +68,8 @@
         "last_name" : "C",
         "email" : "customerc@yopmail.com",
         "password" : "customerc",
-        "role_id" : 4
+        "role_id" : 4,
+        "company_id" : null
     },
     {
         "user_name" : "CustomerD",
@@ -61,6 +77,7 @@
         "last_name" : "D",
         "email" : "customerd@yopmail.com",
         "password" : "customerd",
-        "role_id" : 4
+        "role_id" : 4,
+        "company_id" : null
     }
 ]
