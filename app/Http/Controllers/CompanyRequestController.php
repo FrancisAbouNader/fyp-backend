@@ -206,7 +206,7 @@ class CompanyRequestController extends Controller
     {
         try {
             //-- validation
-            $validation =  $this->validateRequests->validateinsertCompanyRequest();
+            $validation =  $this->validateRequests->validateChangeRequest();
             if ($validation->fails()) {
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
