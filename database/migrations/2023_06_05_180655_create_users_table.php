@@ -30,6 +30,11 @@ return new class extends Migration
             $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('company_id')->references('id')->on('companies');
         });
+
+        Schema::table('companies', function (Blueprint $table) {
+            $table->foreign("user_id")->references("id")->on("users");
+        });
+
     }
 
     /**
