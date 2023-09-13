@@ -30,6 +30,6 @@ class UserRequestProduct extends Model
 
     function items()
     {
-        return $this->belongsToMany(Item::class, "user_request_product_items")
+        return $this->belongsToMany(Item::class, "user_request_product_items");
     }
 }
