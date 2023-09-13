@@ -63,6 +63,9 @@ class CompanyRequestRepository implements CompanyRequestInterface
                 "ownerable_id" => $company_request->company_to_id
             ]);
         }
+
+        $company_request->request_status_id = 2;
+        $company_request->save();
         
     }
 
