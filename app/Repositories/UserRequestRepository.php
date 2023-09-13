@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserRequest;
 use App\Models\UserRequestProduct;
 use App\Interfaces\UserRequestInterface;
+use Illuminate\Support\Facades\DB;
 
 class UserRequestRepository implements UserRequestInterface
 {
@@ -60,6 +61,20 @@ class UserRequestRepository implements UserRequestInterface
                 "ownerable_type" => User::class,
                 "is_sold" => true
             ]);
+
+            $sales = DB::table('company_product_sales')->where('company_id', $user_request->company_id)->where('product_id', $item["product_id"])->first();
+            if(isset($sales))
+            {
+                $sales->quantity ++;
+                $sales->update();
+            }
+            else {
+                DB::table('company_product_sales')->insert([
+                    "quantity" => 1,
+                    "company_id" => $user_request->company_id,
+                    "product_id" => $item["product_id"]
+                ]);
+            }
         }
 
         $user_request->request_status_id = 2;
