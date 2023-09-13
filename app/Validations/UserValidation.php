@@ -7,6 +7,15 @@ use Illuminate\Support\Facades\Validator;
 
 class UserValidation
 {
+    function getAllEmployeesValidation()
+    {
+        return Validator::make(request()->all(), [
+            "FirstName" => "nullable|string",
+            "CustomerId" => "nullable|integer|exists:companies,id",
+            "UserTypeId" => "nullable|integer|exists:user_types,id",
+        ]);
+    }
+
     function idValidation()
     {
         return Validator::make(request()->all(), [

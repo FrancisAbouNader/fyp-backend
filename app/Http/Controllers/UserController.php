@@ -74,6 +74,24 @@ class UserController extends Controller
      *      summary="get all users",
      *      security={{"bearerToken":{}}},
      *
+     *      @OA\Parameter(
+     *         name="FirstName",
+     *         in="query",
+     *         description="first name",
+     *         required=false,
+     *      ),
+     *      @OA\Parameter(
+     *         name="CustomerId",
+     *         in="query",
+     *         description="company id",
+     *         required=false,
+     *      ),
+     *      @OA\Parameter(
+     *         name="UserTypeId",
+     *         in="query",
+     *         description="user type id",
+     *         required=false,
+     *      ),
      *      @OA\Response(
      *          response="200",
      *          description="Successful Operation",
@@ -129,6 +147,10 @@ class UserController extends Controller
     function getAllEmployees(Request $request)
     {
         try {
+            $validation = $this->validateRequests->getAllEmployeesValidation();
+            if ($validation->fails())
+                return $this->handleReturn(false, null, $validation->errors()->first());
+
             $employees = $this->userInterface->getAllEmployees($request);
             return $this->handleReturn(true, $employees, null);
         } catch (Exception $ex) {

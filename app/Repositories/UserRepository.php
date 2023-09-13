@@ -16,7 +16,24 @@ class UserRepository implements UserInterface
     // ----- get all users
     function getAllUsers($request)
     {
-        return User::with('company')->with('role')->get();
+        $users =  User::with('company')->with('role');
+        
+        if(isset($request->FirstName))
+        {
+            $users = $users->where('first_name', 'ILIKE', '%' . $request->FirstName . '%');
+        }
+        
+        if(isset($request->CustomerId))
+        {
+            $users = $users->where('company_id',$request->CustomerId );
+        }
+
+        if(isset($request->UserTypeId))
+        {
+            $users = $users->where('role_id',$request->UserTypeId );
+        }
+        
+        return $users->get();
     }
 
     function getAllEmployees($request)
