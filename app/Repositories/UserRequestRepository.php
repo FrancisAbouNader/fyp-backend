@@ -29,7 +29,7 @@ class UserRequestRepository implements UserRequestInterface
     // ----- get customer requests
     function getPendingCustomerRequests($request)
     {
-        $customer_requests = UserRequest::where("request_status_id" , 1)->with('requestStatus')->with('user')->with('products');
+        $customer_requests = UserRequest::with('requestStatus')->with('user')->with('products');
 
         if(isset($request->name))
         {
