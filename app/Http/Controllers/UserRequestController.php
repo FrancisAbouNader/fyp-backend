@@ -206,7 +206,7 @@ class UserRequestController extends Controller
             $user_request = $this->userRequestInterface->changeRequestStatus($request);
             DB::commit();
 
-            // return $this->handleReturn(true, $token, "Logged in successfully");
+            return $this->handleReturn(true, $user_request, null);
         } catch (Exception $ex) {
             DB::rollBack();
             return $this->reportError($ex);

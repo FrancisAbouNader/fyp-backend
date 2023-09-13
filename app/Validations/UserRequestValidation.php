@@ -2,6 +2,7 @@
 
 namespace App\Validations;
 
+use App\Models\UserRequest;
 use Illuminate\Support\Facades\Validator;
 
 class UserRequestValidation
@@ -12,7 +13,7 @@ class UserRequestValidation
         return Validator::make(request()->all(), [
             "user_request_id"                         => "required|integer|exists:user_requests,id",
             "items"                                      => "required|array",
-            "items.*.item_id"                            => "required|distinct|integer|exists:items,id,is_sold,FALSE",
+            "items.*.item_id"                            => "required|distinct|integer|exists:items,id,is_sold,FALSE,ownerable_id," . UserRequest::find(request()->user_request_id)->company_id,
             "items.*.product_id"                         => "required|integer|exists:products,id",
         ]);
     }
