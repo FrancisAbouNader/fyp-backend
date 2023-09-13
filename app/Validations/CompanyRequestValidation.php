@@ -2,6 +2,7 @@
 
 namespace App\Validations;
 
+use App\Models\CompanyRequest;
 use Illuminate\Support\Facades\Validator;
 
 class CompanyRequestValidation
@@ -34,8 +35,8 @@ class CompanyRequestValidation
         return Validator::make(request()->all(), [
             "company_request_id"                         => "required|integer|exists:company_requests,id",
             "items"                                      => "required|array",
-            "items.*.item_id"                            => "required|distinct|integer|exists:items,id,is_sold,FALSE",
+            "items.*.item_id"                            => "required|distinct|integer|exists:items,id,is_sold,FALSE,ownerable_id", CompanyRequest::find(request()->company_request_id)->company_from_id,
             "items.*.product_id"                         => "required|integer|exists:products,id",
-        ]);
+        ])->stopOnFirstFailure(true);
     }
 }
