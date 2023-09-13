@@ -34,6 +34,16 @@ class CompanyRequestRepository implements CompanyRequestInterface
             });
         }
 
+        if(isset($request->CompanyToId))
+        {
+            $company_requests = $company_requests->where('company_to_id', $request->CompanyToId);
+        }
+
+        if(isset($request->RequestStatusId))
+        {
+            $company_requests = $company_requests->where('request_status_id', $request->RequestStatusId);
+        }
+
         return isset($request->per_page) ? $company_requests->paginate($request->per_page) : $company_requests->get();
     }
 

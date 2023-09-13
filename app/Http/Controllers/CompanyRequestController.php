@@ -35,7 +35,12 @@ class CompanyRequestController extends Controller
      *     @OA\Parameter(
      *        name="companyId", in="query", required=true, @OA\Schema(type="integer")
      *     ),
-     *
+     *     @OA\Parameter(
+     *        name="companyToId", in="query", required=false, @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *        name="RequestStatusId", in="query", required=false, @OA\Schema(type="integer")
+     *     ),
      *      @OA\Response(
      *          response="200",
      *          description="Successful Operation",

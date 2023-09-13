@@ -12,7 +12,9 @@ class CompanyRequestValidation
         return Validator::make(request()->all(), [
             "per_page"    => "nullable|integer",
             "name"        => "nullable|string",
-            "companyId"   => "required|integer|exists:companies,id"
+            "companyId"   => "required|integer|exists:companies,id",
+            "companyToId"   => "nullable|integer|exists:companies,id",
+            "RequestStatusId"   => "nullable|integer|exists:request_statuses,id"
         ]);
     }
 
