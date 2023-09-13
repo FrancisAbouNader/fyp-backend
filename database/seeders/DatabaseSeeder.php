@@ -13,6 +13,7 @@ use Database\Seeders\ProductSeeder;
 use Database\Seeders\SectionSeeder;
 use Database\Seeders\CompanieSeeder;
 use Database\Seeders\ProductTypeSeeder;
+use Database\Seeders\UpdateUsersSeeder;
 use Database\Seeders\UserRequestSeeder;
 use Database\Seeders\RequestStatusSeeder;
 
@@ -34,7 +35,8 @@ class DatabaseSeeder extends Seeder
             ItemSeeder::class,
             RequestStatusSeeder::class,
             UserRequestSeeder::class,
-            SectionSeeder::class
+            SectionSeeder::class,
+            UpdateUsersSeeder::class
         ]);
     }
 }
