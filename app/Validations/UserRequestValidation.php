@@ -7,6 +7,16 @@ use Illuminate\Support\Facades\Validator;
 class UserRequestValidation
 {
 
+    function validateChangeRequest()
+    {
+        return Validator::make(request()->all(), [
+            "user_request_id"                         => "required|integer|exists:user_requests,id",
+            "items"                                      => "required|array",
+            "items.*.item_id"                            => "required|distinct|integer|exists:items,id,is_sold,FALSE",
+            "items.*.product_id"                         => "required|integer|exists:products,id",
+        ]);
+    }
+
     function validateGetCustomerRequests()
     {
         return Validator::make(request()->all(), [

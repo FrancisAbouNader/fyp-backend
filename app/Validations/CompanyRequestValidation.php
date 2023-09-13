@@ -32,9 +32,9 @@ class CompanyRequestValidation
     function validateChangeRequest()
     {
         return Validator::make(request()->all(), [
-            "company_request_id"                         => "required|integer|exists:companies,id",
+            "company_request_id"                         => "required|integer|exists:company_requests,id",
             "items"                                      => "required|array",
-            "items.*.item_id"                            => "required|distinct|integer|exists:items,id",
+            "items.*.item_id"                            => "required|distinct|integer|exists:items,id,is_sold,FALSE",
             "items.*.product_id"                         => "required|integer|exists:products,id",
         ]);
     }

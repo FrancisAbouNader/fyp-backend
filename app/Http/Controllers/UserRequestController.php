@@ -154,7 +154,10 @@ class UserRequestController extends Controller
      *            @OA\Schema(
      *               type="object",
      *               @OA\Property(property="user_request_id"),
-     *               @OA\Property(property="request_status_id"),
+     *               @OA\Property(property="items",type="array", @OA\Items(
+     *               @OA\Property(property="product_id", type="integer"),
+     *               @OA\Property(property="item_id", type="integer"),
+     *                  ),),
      *            ),
      *        ),
      *    ),
@@ -194,13 +197,13 @@ class UserRequestController extends Controller
     {
         try {
             //-- validation
-            // $validation =  $this->validateRequests->validateLogin();
-            // if ($validation->fails()) {
-            //     return $this->handleReturn(false, null, $validation->errors()->first());
-            // }
+            $validation =  $this->validateRequests->validateChangeRequest();
+            if ($validation->fails()) {
+                return $this->handleReturn(false, null, $validation->errors()->first());
+            }
 
             DB::beginTransaction();
-
+            $user_request = $this->userRequestInterface->changeRequestStatus($request);
             DB::commit();
 
             // return $this->handleReturn(true, $token, "Logged in successfully");

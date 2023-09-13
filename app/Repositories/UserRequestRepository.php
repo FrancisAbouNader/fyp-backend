@@ -2,7 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Models\Item;
+use App\Models\User;
 use App\Models\UserRequest;
+use App\Models\UserRequestProduct;
 use App\Interfaces\UserRequestInterface;
 
 class UserRequestRepository implements UserRequestInterface
@@ -42,6 +45,25 @@ class UserRequestRepository implements UserRequestInterface
         }
 
         return isset($request->per_page) ? $customer_requests->paginate($request->per_page) : $customer_requests->get();
+    }
+
+    function changeRequestStatus($request)
+    {
+        $user_request = UserRequest::find($request->user_request_id);
+
+        foreach($request->items as $item)
+        {
+            UserRequestProduct::where('user_request_id', $user_request->id)->where('product_id', $item["product_id"])->first()->items()->attach($item["item_id"]);
+            
+            Item::where('id', $item["item_id"])->update([
+                "ownerable_id" => $user_request->user_id,
+                "ownerable_type" => User::class,
+                "is_sold" => true
+            ]);
+        }
+
+        $user_request->request_status_id = 2;
+        $user_request->save();
     }
 
 }
