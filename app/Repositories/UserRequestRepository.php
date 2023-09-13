@@ -63,7 +63,7 @@ class UserRequestRepository implements UserRequestInterface
         }
 
         $user_request->request_status_id = 2;
-        $user_request->save();
+        $user_request->update();
     }
 
 }
