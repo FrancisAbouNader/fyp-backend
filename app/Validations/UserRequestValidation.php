@@ -11,7 +11,8 @@ class UserRequestValidation
     {
         return Validator::make(request()->all(), [
             "per_page"    => "nullable|integer",
-            "name"        => "nullable|string"
+            "name"        => "nullable|string",
+            "RequestStatusId"   => "nullable|integer|exists:request_statuses,id"
         ]);
     }
 

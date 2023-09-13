@@ -32,6 +32,9 @@ class UserRequestController extends Controller
      *      summary="pending requests",
      *      security={{"bearerToken":{}}},
      *
+     *     @OA\Parameter(
+     *        name="RequestStatusId", in="query", required=false, @OA\Schema(type="integer")
+     *     ),
      *      @OA\Response(
      *          response="200",
      *          description="Successful Operation",
