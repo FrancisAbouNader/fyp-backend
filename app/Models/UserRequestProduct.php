@@ -27,4 +27,9 @@ class UserRequestProduct extends Model
     {
         return $this->belongsTo(UserRequest::class);
     }
+
+    function items()
+    {
+        return $this->belongsToMany(Item::class, "user_request_product_items")
+    }
 }
