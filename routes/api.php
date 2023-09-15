@@ -111,6 +111,7 @@ Route::group(
     function () {
         Route::get('/GetProducts', [ProductController::class, 'getProducts']);
         Route::get('/GetCompanyProductsSales', [ProductController::class, 'getCompanyProductsSales']);
+        Route::get('/GetAllProductsSales', [ProductController::class, 'getAllProductsSales']);
         Route::get('/GetProductById', [ProductController::class, 'getProductById']);
         Route::post('/InsertProduct', [ProductController::class, 'insertProduct']);
         Route::post('/UpdateProduct', [ProductController::class, 'updateProduct']);

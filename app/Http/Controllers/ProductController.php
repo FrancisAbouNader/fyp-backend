@@ -191,20 +191,14 @@ class ProductController extends Controller
         }
     }
 
-    // ----- get company products sales
+    // ----- get all products sales
     /**
      * @OA\Get(
-     *      path="/Product/GetCompanyProductsSales",
+     *      path="/Product/GetAllProductsSales",
      *      tags={"Product"},
      *      summary="get products sales",
      *      security={{"bearerToken":{}}},
      *
-     *      @OA\Parameter(
-     *         name="company_id",
-     *         in="query",
-     *         description="id",
-     *         required=true,
-     *      ),
      *      @OA\Response(
      *          response="200",
      *          description="Successful Operation",
@@ -226,7 +220,7 @@ class ProductController extends Controller
     function getAllProductsSales(Request $request)
     {
         try {
-            
+
             $products = $this->ProductInterface->getCompanyProductsSales($request);
             
             return $this->handleReturn(true, $products, null);
