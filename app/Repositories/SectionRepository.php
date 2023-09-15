@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Section;
 use App\Interfaces\SectionInterface;
+use Illuminate\Support\Facades\DB;
 
 class SectionRepository implements SectionInterface
 {
@@ -55,16 +56,15 @@ class SectionRepository implements SectionInterface
     // ----- swap Sections
     function swapSections($request)
     {
-        $first_section = Section::find($request->first_section_id);
-        $second_section  =  Section::find($request->second_section_id);
+        $sales = DB::table('company_product_sales')->where('company_id', $request->company_id)->orderBy('quantity', 'DESC')->get();
 
-        $first_section_order = $first_section->order;
-        $second_section_order = $second_section->order;
-        $first_section->order = $second_section_order;
-        $second_section->order = $first_section_order;
-
-        $first_section->save();
-        $second_section->save();
+        foreach($sales as $key => $sale)
+        {
+            Section::where('company_id', $request->company_id)->where('product_id', $sale->product_id)->update([
+                "order" => $key
+            ]);
+        }
+        
     }
 
     // --- delete Section

@@ -45,6 +45,16 @@ class ProductRepository implements ProductInterface
         return $products->get();
     }
     
+    // ----- get company products sales
+    function getCompanyProductsSales($request)
+    {
+        return Product::whereHas('companySales', function ($query) use ($request) {
+            $query->where('company_id', $request->company_id);
+        })->with(['companySales', function ($query) use ($request) {
+            $query->where('company_id', $request->company_id);
+        }])->get();
+    }
+
     // ----- insert products
     function insertProduct($request)
     {

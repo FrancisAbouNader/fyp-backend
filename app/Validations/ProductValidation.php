@@ -32,6 +32,13 @@ class ProductValidation
         ]);
     }
 
+    function getCompanyProductsSalesValidation()
+    {
+        return Validator::make(request()->all(), [
+            "company_id" => "required|integer|exists:companies,id",
+        ]);
+    }
+
     function validateInsertProduct()
     {
 

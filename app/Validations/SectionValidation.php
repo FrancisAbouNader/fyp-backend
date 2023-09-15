@@ -40,8 +40,7 @@ class SectionValidation
     function validateSwapSections()
     {
         return Validator::make(request()->all(), [
-            "first_section_id" => "required|integer|exists:sections,id",
-            "second_section_id" => "required|integer|exists:sections,id,company_id," . Section::find(request()->first_section_id)->company_id,
+            "company_id" => "required|integer|exists:companies,id",
         ]);
     }
 

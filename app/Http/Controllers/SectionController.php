@@ -279,8 +279,7 @@ class SectionController extends Controller
      *            mediaType="application/json",
      *            @OA\Schema(
      *               type="object",
-     *               @OA\Property(property="first_section_id", type="integer"),
-     *               @OA\Property(property="second_section_id",  type="integer"),
+     *               @OA\Property(property="company_id", type="integer"),
      *            ),
      *        ),
      *    ),
