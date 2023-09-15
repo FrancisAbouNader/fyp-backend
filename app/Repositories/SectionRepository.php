@@ -58,11 +58,13 @@ class SectionRepository implements SectionInterface
     {
         $sales = DB::table('company_product_sales')->where('company_id', $request->company_id)->orderBy('quantity', 'DESC')->get();
 
-        foreach($sales as $key => $sale)
+        $i = 1;
+        foreach($sales as $sale)
         {
             Section::where('company_id', $request->company_id)->where('product_id', $sale->product_id)->update([
-                "order" => $key
+                "order" => $i
             ]);
+            $i ++ ;
         }
         
     }

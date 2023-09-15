@@ -176,20 +176,64 @@ class ProductController extends Controller
      * )
      */
     
-     function getCompanyProductsSales(Request $request)
-     {
-         try {
-             $validation = $this->validateRequests->getCompanyProductsSalesValidation();
-             if ($validation->fails())
-                 return $this->handleReturn(false, null, $validation->errors()->first());
- 
-             $products = $this->ProductInterface->getCompanyProductsSales($request);
-             
-             return $this->handleReturn(true, $products, null);
-         } catch (Exception $ex) {
-             return $this->reportError($ex);
-         }
-     }
+    function getCompanyProductsSales(Request $request)
+    {
+        try {
+            $validation = $this->validateRequests->getCompanyProductsSalesValidation();
+            if ($validation->fails())
+                return $this->handleReturn(false, null, $validation->errors()->first());
+
+            $products = $this->ProductInterface->getCompanyProductsSales($request);
+            
+            return $this->handleReturn(true, $products, null);
+        } catch (Exception $ex) {
+            return $this->reportError($ex);
+        }
+    }
+
+    // ----- get company products sales
+    /**
+     * @OA\Get(
+     *      path="/Product/GetCompanyProductsSales",
+     *      tags={"Product"},
+     *      summary="get products sales",
+     *      security={{"bearerToken":{}}},
+     *
+     *      @OA\Parameter(
+     *         name="company_id",
+     *         in="query",
+     *         description="id",
+     *         required=true,
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful Operation",
+     *          @OA\JsonContent(
+     *          type="object",
+     *          @OA\Property(property="success", type="boolean", description="status" ),
+     *          @OA\Property(property="data", type="object", description="data" ),
+     *          @OA\Property(property="message", type="string", description="message" ),
+     *          ),
+     *        ),
+     *
+     *     @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * )
+     */
+    
+    function getAllProductsSales(Request $request)
+    {
+        try {
+            
+            $products = $this->ProductInterface->getCompanyProductsSales($request);
+            
+            return $this->handleReturn(true, $products, null);
+        } catch (Exception $ex) {
+            return $this->reportError($ex);
+        }
+    }
 
 //
 

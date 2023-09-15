@@ -55,6 +55,12 @@ class ProductRepository implements ProductInterface
         }])->get();
     }
 
+    // ----- get all products sales
+    function getAllProductsSales($request)
+    {
+        return Product::with('companySales')->get();
+    }
+
     // ----- insert products
     function insertProduct($request)
     {
