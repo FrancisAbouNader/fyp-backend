@@ -19,7 +19,7 @@ class CompanyRequest extends Model
 
     function products()
     {
-        return $this->belongsToMany(Product::class, "company_request_products");
+        return $this->belongsToMany(Product::class, "company_request_products")->withPivot('quantity');
     }
 
     function companyTo()

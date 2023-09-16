@@ -20,7 +20,7 @@ class UserRequest extends Model
 
     function products()
     {
-        return $this->belongsToMany(Product::class, "user_request_products");
+        return $this->belongsToMany(Product::class, "user_request_products")->withPivot('quantity');
     }
 
     function user()
