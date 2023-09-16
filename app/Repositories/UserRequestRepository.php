@@ -45,6 +45,11 @@ class UserRequestRepository implements UserRequestInterface
             $customer_requests = $customer_requests->where('request_status_id', $request->RequestStatusId);
         }
 
+        if(isset($request->company_id))
+        {
+            $customer_requests = $customer_requests->where('company_id', $request->company_id);
+        }
+
         return isset($request->per_page) ? $customer_requests->paginate($request->per_page) : $customer_requests->get();
     }
 

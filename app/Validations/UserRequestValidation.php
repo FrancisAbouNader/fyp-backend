@@ -22,7 +22,6 @@ class UserRequestValidation
                 "items.*.item_id"                            => "required|distinct|integer|exists:items,id,is_sold,FALSE,ownerable_id," . UserRequest::find(request()->user_request_id)->company_id,
                 "items.*.product_id"                         => "required|integer|exists:products,id",
         ]);
-    
     }
 
     function validateGetCustomerRequests()
@@ -30,7 +29,8 @@ class UserRequestValidation
         return Validator::make(request()->all(), [
             "per_page"    => "nullable|integer",
             "name"        => "nullable|string",
-            "RequestStatusId"   => "nullable|integer|exists:request_statuses,id"
+            "RequestStatusId"   => "nullable|integer|exists:request_statuses,id",
+            "company_id"   => "nullable|integer|exists:companies,id"
         ]);
     }
 

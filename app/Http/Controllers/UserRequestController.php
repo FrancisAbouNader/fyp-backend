@@ -35,6 +35,9 @@ class UserRequestController extends Controller
      *     @OA\Parameter(
      *        name="RequestStatusId", in="query", required=false, @OA\Schema(type="integer")
      *     ),
+     *     @OA\Parameter(
+     *        name="company_id", in="query", required=false, @OA\Schema(type="integer")
+     *     ),
      *      @OA\Response(
      *          response="200",
      *          description="Successful Operation",
