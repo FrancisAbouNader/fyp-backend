@@ -10,12 +10,19 @@ class UserRequestValidation
 
     function validateChangeRequest()
     {
+        $validator = Validator::make(request()->all(), [
+            "user_request_id"                            => "required|integer|exists:user_requests,id",
+        ]);
+
+        if($validator->fails())
+            return $validator;
+
         return Validator::make(request()->all(), [
-            "user_request_id"                         => "required|integer|exists:user_requests,id",
-            "items"                                      => "required|array",
-            "items.*.item_id"                            => "required|distinct|integer|exists:items,id,is_sold,FALSE,ownerable_id," . UserRequest::find(request()->user_request_id)->company_id,
-            "items.*.product_id"                         => "required|integer|exists:products,id",
-        ])->stopOnFirstFailure(true);
+                "items"                                      => "required|array",
+                "items.*.item_id"                            => "required|distinct|integer|exists:items,id,is_sold,FALSE,ownerable_id," . UserRequest::find(request()->user_request_id)->company_id,
+                "items.*.product_id"                         => "required|integer|exists:products,id",
+        ]);
+    
     }
 
     function validateGetCustomerRequests()
