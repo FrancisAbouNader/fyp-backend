@@ -71,7 +71,7 @@ class UserRequestRepository implements UserRequestInterface
             if(isset($sales))
             {
                 $sales->quantity ++;
-                $sales->update();
+                $sales->save();
             }
             else {
                 DB::table('company_product_sales')->insert([
