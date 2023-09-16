@@ -50,7 +50,7 @@ class ProductRepository implements ProductInterface
     {
         return Product::whereHas('companySales', function ($query) use ($request) {
             $query->where('company_id', $request->company_id);
-        })->with(['companySales', function ($query) use ($request) {
+        })->with(["companySales" => function ($query) use ($request) {
             $query->where('company_id', $request->company_id);
         }])->get();
     }
