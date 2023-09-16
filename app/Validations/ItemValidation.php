@@ -28,7 +28,7 @@ class ItemValidation
     {
 
         return Validator::make(request()->all(), [
-            "product_id" => "required|integer|unique:products,id,deleted_at,NULL",
+            "product_id" => "required|integer|exits:products,id",
             'imei' => "required|string",
             'name' => "required|string",
             'company_id' => "required|integer|exists:companies,id"
