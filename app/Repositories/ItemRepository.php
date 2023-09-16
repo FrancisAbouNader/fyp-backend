@@ -21,7 +21,14 @@ class ItemRepository implements ItemInterface
 
         if(isset($request->CompanyId))
         {
-            $items = $items->where('ownerable_id', $request->CompanyId)->where('ownerable_type', Company::class);
+            $items = $items->where(function ($query) use ($request) {
+                $query->where('ownerable_id', $request->CompanyId)->where('ownerable_type', Company::class);
+                $query->orWhereHas('userRequestProduct', function ($query) use ($request) {
+                    $query->whereHas('userRequest', function ($query) use ($request) {
+                        $query->where('company_id', $request->company_id);
+                    });
+                });
+            });
         }
 
         if(isset($request->IsSold))

@@ -34,4 +34,9 @@ class Item extends Model
         return $this->belongsTo(Company::class);
     }
 
+    public function userRequestProduct()
+    {
+        return $this->belongsToMany(UserRequestProduct::class, 'user_request_product_items');
+    }
+
 }
