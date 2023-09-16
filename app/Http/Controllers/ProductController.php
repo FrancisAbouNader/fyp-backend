@@ -221,7 +221,7 @@ class ProductController extends Controller
     {
         try {
 
-            $products = $this->ProductInterface->getCompanyProductsSales($request);
+            $products = $this->ProductInterface->getAllProductsSales($request);
             
             return $this->handleReturn(true, $products, null);
         } catch (Exception $ex) {
