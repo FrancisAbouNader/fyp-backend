@@ -50,11 +50,12 @@ class ItemRepository implements ItemInterface
     {
         //-- insert item
         $item = Item::create([
-            "imei" => $request->imei,
+            'imei' => $request->imei,
             'product_id' => $request->product_id,
             'name' => $request->name,
             'ownerable_id' => $request->company_id,
-            'ownerable_type' => Company::class
+            'ownerable_type' => Company::class,
+            'is_sold' => false
         ]);
 
         return $item;
