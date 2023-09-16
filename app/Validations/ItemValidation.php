@@ -9,6 +9,10 @@ class ItemValidation
 {
     function validateGetItems()
     {
+        request()->merge([
+            'IsSold' => isset(request()->IsSold) ? filter_var(request()->IsSold, FILTER_VALIDATE_BOOLEAN) : null,
+        ]);
+
         return Validator::make(request()->all(), [
             "ProductIds" => "nullable|array",
             "ProductIds.*" => "required|integer|exists:products,id",
