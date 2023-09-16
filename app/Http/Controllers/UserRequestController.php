@@ -205,6 +205,17 @@ class UserRequestController extends Controller
                 return $this->handleReturn(false, null, $validation->errors()->first());
             }
 
+            //-- validate quantities
+            $product_ids = array_column($request->items, "product_id");
+            $product_count = array_count_values($product_ids);
+            $product_quantities = DB::table('user_request_products')->where('user_request_id', $request->user_request_id)->get();
+            foreach($product_quantities as $product_quantity)
+            {
+                if($product_quantity->quantity != $product_count[$product_quantity->product_id])
+                {
+                    return $this->handleReturn(false, null, "count error");
+                }
+            }
             DB::beginTransaction();
             $user_request = $this->userRequestInterface->changeRequestStatus($request);
             DB::commit();
