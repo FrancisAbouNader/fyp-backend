@@ -25,7 +25,7 @@ class ItemRepository implements ItemInterface
                 $query->where('ownerable_id', $request->CompanyId)->where('ownerable_type', Company::class);
                 $query->orWhereHas('userRequestProduct', function ($query) use ($request) {
                     $query->whereHas('userRequest', function ($query) use ($request) {
-                        $query->where('company_id', $request->company_id);
+                        $query->where('user_requests.company_id', $request->company_id);
                     });
                 });
             });

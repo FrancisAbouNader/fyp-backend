@@ -32,8 +32,14 @@ class CompanyRequestValidation
 
     function validateChangeRequest()
     {
-        return Validator::make(request()->all(), [
+        $validator = Validator::make(request()->all(), [
             "company_request_id"                         => "required|integer|exists:company_requests,id",
+        ])->stopOnFirstFailure(true);
+
+        if($validator->fails())
+            return $validator;
+            
+        return Validator::make(request()->all(), [
             "items"                                      => "required|array",
             "items.*.item_id"                            => "required|distinct|integer|exists:items,id,is_sold,FALSE,ownerable_id", CompanyRequest::find(request()->company_request_id)->company_from_id,
             "items.*.product_id"                         => "required|integer|exists:products,id",
